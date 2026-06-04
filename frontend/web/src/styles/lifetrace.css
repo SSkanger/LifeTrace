@@ -1443,11 +1443,11 @@
       left: 50%;
       top: 16px;
       width: 390px;
-      height: 844px;
+      height: 752px;
       z-index: 80;
-      padding: 68px 20px 96px;
+      padding: 68px 20px 28px;
       overflow-y: auto;
-      border-radius: 46px;
+      border-radius: 46px 46px 28px 28px;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, .04), transparent 18%),
         radial-gradient(circle at 8% 2%, rgba(246, 168, 75, .24), transparent 30%),
@@ -1541,7 +1541,6 @@
     }
 
     .year-row,
-    .month-grid,
     .week-list {
       display: flex;
       gap: 8px;
@@ -1549,8 +1548,20 @@
     }
 
     .month-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: nowrap;
+      scroll-snap-type: x proximity;
+      padding: 1px 2px 8px;
+      margin: 0 -2px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .month-grid::-webkit-scrollbar {
+      display: none;
     }
 
     .month-chip,
@@ -1565,7 +1576,11 @@
     }
 
     .month-chip {
-      padding: 7px 0;
+      flex: 0 0 48px;
+      min-height: 30px;
+      padding: 6px 0;
+      font-size: 11.5px;
+      scroll-snap-align: start;
     }
 
     .month-chip.active,
@@ -1998,6 +2013,13 @@
         border: 0;
         border-radius: 0;
         box-shadow: none;
+      }
+
+      .summary-panel {
+        top: 0;
+        width: 100vw;
+        height: calc(100vh - 82px);
+        border-radius: 0;
       }
 
       main {
