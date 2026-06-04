@@ -39,6 +39,7 @@ const summaryCopy = {
 
     let selectedSummaryYear = '2025';
     let selectedSummaryMonth = '5';
+    let selectedSummaryWeek = '0';
     const monthlyCopy = {
       '2025-5': {
         meta: '2025 年 5 月',
@@ -136,10 +137,65 @@ const summaryCopy = {
         <div class="summary-note" style="margin-top:16px">也可以用自然语言搜索这个月相关的地点、照片或日程片段。</div>`;
     }
 
+    function formatIsoDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function todayIsoDate() {
+      const override = window.LifeTraceToday || document.body.dataset.today || '';
+      if (/^\d{4}-\d{2}-\d{2}$/.test(override)) return override;
+      return formatIsoDate(new Date());
+    }
+
+    function currentWeekDates() {
+      const today = new Date(`${todayIsoDate()}T00:00:00`);
+      const day = today.getDay() || 7;
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - day + 1);
+      return Array.from({ length: 7 }, (_, index) => {
+        const date = new Date(monday);
+        date.setDate(monday.getDate() + index);
+        return formatIsoDate(date);
+      });
+    }
+
+    function visibleDailyOverviews(items) {
+      const today = todayIsoDate();
+      return items.filter((item, index) => {
+        const date = dailyOverviewDate(item, index);
+        return !/^\d{4}-\d{2}-\d{2}$/.test(date) || date <= today;
+      });
+    }
+
+    function dailyOverviewDate(item, index) {
+      return item.isoDate || item.targetDate || item.date || item.day || currentWeekDates()[index] || '';
+    }
+
+    function openDailyOverviewReview(date) {
+      if (!date || !window.openDailyReview) return;
+      document.getElementById('summaryPanel').classList.remove('active', 'closing');
+      window.openDailyReview(date, {
+        targetPage: 'summaryPage',
+        restore: { panel: 'weekly', week: selectedSummaryWeek }
+      });
+    }
+
+    function bindDailyOverviewClicks() {
+      document.querySelectorAll('#summaryPanelBody .daily-overview-card').forEach((card, index) => {
+        if (!card.dataset.reviewDate) {
+          card.dataset.reviewDate = currentWeekDates()[index] || '';
+        }
+      });
+    }
+
     function renderWeeklySummary(week = '0') {
+      selectedSummaryWeek = String(week);
       const response = api.getWeeklySummary ? api.getWeeklySummary(Number(week)) : {};
       const data = response.weeklySummary || weeklyCopy[week] || weeklyCopy[0];
-      const dailyOverviews = data.dailyOverviews || [];
+      const dailyOverviews = visibleDailyOverviews(data.dailyOverviews || []);
       const relatedMemories = data.relatedMemories || [];
       document.getElementById('summaryPanelTitle').textContent = '周度总结';
       document.getElementById('summaryPanelMeta').textContent = data.dateRange || data.meta || '';
@@ -157,14 +213,15 @@ const summaryCopy = {
             <div class="story-row"><b>适合回看</b><p>${escapeHtml(data.reviewSuggestion || data.review || '')}</p></div>
           </div>
         </div>
-        <div class="summary-section-title"><h3>每日概述</h3><span>左右滑动查看</span></div>
+        <div class="summary-section-title"><h3>每日概述</h3><span>点击进入当天回顾</span></div>
         <div class="daily-overview-track">
-          ${dailyOverviews.map(item => `<div class="daily-overview-card"><b>${escapeHtml(item.weekday || item.date || '')}</b><p>${escapeHtml(item.summary || '')}</p><span>${escapeHtml((item.tags || []).join(' · '))}</span></div>`).join('')}
+          ${dailyOverviews.map((item, index) => `<button class="daily-overview-card" data-review-date="${escapeHtml(dailyOverviewDate(item, index))}"><b>${escapeHtml(item.weekday || item.date || item.targetDate || '')}</b><p>${escapeHtml(item.summary || '')}</p><span>${escapeHtml((item.tags || []).join(' · '))}</span></button>`).join('')}
         </div>
         <div class="summary-section-title"><h3>相关片段</h3><span>从日期中继续</span></div>
         <div class="summary-memory-list">
           ${relatedMemories.map(item => `<button class="summary-memory" data-go="calendarPage"><span><b>${escapeHtml(item.title)}</b><span>${escapeHtml(item.subtitle || item.targetDate || '')}</span></span><i>›</i></button>`).join('')}
         </div>`;
+      bindDailyOverviewClicks();
     }
 
     function openSummaryPanel(type, initialDateMode = '') {
@@ -188,7 +245,16 @@ const summaryCopy = {
       document.getElementById('summaryPanelTitle').textContent = data.title;
       document.getElementById('summaryPanelMeta').textContent = data.meta;
       document.getElementById('summaryPanelBody').innerHTML = data.body;
+      bindDailyOverviewClicks();
     }
+
+    function restoreSummaryPanel(context) {
+      if (!context || context.panel !== 'weekly') return;
+      openSummaryPanel('weekly');
+      renderWeeklySummary(context.week || selectedSummaryWeek || '0');
+    }
+
+    window.restoreSummaryPanel = restoreSummaryPanel;
 
     function closeSummaryPanel() {
       const panel = document.getElementById('summaryPanel');
@@ -209,4 +275,8 @@ const summaryCopy = {
     document.querySelectorAll('.week-chip').forEach(chip => {
       chip.onclick = () => renderWeeklySummary(chip.dataset.week);
     });
-
+    document.getElementById('summaryPanelBody').addEventListener('click', e => {
+      const card = e.target.closest('.daily-overview-card');
+      if (!card) return;
+      openDailyOverviewReview(card.dataset.reviewDate);
+    });

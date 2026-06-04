@@ -339,6 +339,8 @@ def _timeline_event(item: dict[str, Any]) -> dict[str, Any]:
         "evidence": item.get("evidence", []),
         "icon": item.get("display", {}).get("icon", "sparkles"),
         "tone": item.get("display", {}).get("tone", "blue"),
+        "photo": item.get("photo"),
+        "photos": item.get("photos", []),
     }
 
 
@@ -385,6 +387,8 @@ def _merge_timeline_texts_with_raw_segments(
                 ),
                 "sourceTypes": _source_types_for_segment(segment),
                 "display": _display_for_category(category),
+                "photo": _primary_photo_for_segment(segment, category),
+                "photos": _photos_for_segment(segment, category),
             }
         )
     return merged
@@ -415,6 +419,8 @@ def _merge_timeline_with_raw_segments(
                 ),
                 "sourceTypes": _source_types_for_segment(segment) if segment else item.get("sourceTypes", []),
                 "display": item.get("display") or _display_for_category(category),
+                "photo": item.get("photo") or _primary_photo_for_segment(segment, category),
+                "photos": item.get("photos") or _photos_for_segment(segment, category),
             }
         )
     return merged
@@ -447,6 +453,52 @@ def _display_for_category(category: str) -> dict[str, str]:
         "rest": {"icon": "moon", "tone": "slate"},
     }
     return mapping.get(category, {"icon": "sparkles", "tone": "blue"})
+
+
+def _photos_for_segment(segment: dict[str, Any], category: str) -> list[dict[str, str]]:
+    photo_labels = _dedupe_strings([str(item) for item in segment.get("relatedPhotos", []) if str(item).strip()])[:4]
+    if not photo_labels:
+        return []
+
+    evidence_text = " ".join(str(item) for item in segment.get("evidence", []))
+    photos = []
+    for label in photo_labels:
+        photos.append(
+            {
+                "title": label,
+                "meta": _photo_meta(label, evidence_text),
+                "style": _photo_style(label, category),
+            }
+        )
+    return photos
+
+
+def _primary_photo_for_segment(segment: dict[str, Any], category: str) -> dict[str, str] | None:
+    photos = _photos_for_segment(segment, category)
+    return photos[0] if photos else None
+
+
+def _photo_meta(label: str, evidence_text: str) -> str:
+    count_match = re.search(rf"{re.escape(label)}[^，。；;]*?(\d+)\s*张", evidence_text)
+    if count_match:
+        return f"照片线索 · {count_match.group(1)} 张"
+
+    time_match = re.search(r"(\d{1,2}:\d{2})[^，。；;]*" + re.escape(label), evidence_text)
+    if time_match:
+        return f"照片线索 · {time_match.group(1)}"
+
+    return "照片线索"
+
+
+def _photo_style(label: str, category: str) -> str:
+    text = f"{label} {category}".lower()
+    if any(keyword in text for keyword in ("晚霞", "天空", "sunset", "操场")):
+        return "sunset"
+    if any(keyword in text for keyword in ("图书馆", "文档", "项目", "资料", "报告", "代码", "计划", "ppt", "板书", "提纲")):
+        return "library"
+    if any(keyword in text for keyword in ("散步", "校园", "生活")):
+        return "walk"
+    return "memory"
 
 
 def _home_chips(payload: dict[str, Any]) -> list[str]:

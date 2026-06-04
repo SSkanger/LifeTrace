@@ -7,6 +7,7 @@ const pages = [...document.querySelectorAll('.page')];
     const api = window.LifeTraceClient || {};
     let selectedReviewData = null;
     let latestSearchResults = [];
+    let reviewBackContext = { targetPage: 'calendarPage' };
 
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>"']/g, ch => ({
@@ -53,9 +54,20 @@ const pages = [...document.querySelectorAll('.page')];
       }
     }
 
+    function setReviewBackContext(context) {
+      if (!context) return;
+      reviewBackContext = typeof context === 'string' ? { targetPage: context } : context;
+    }
+
+    window.setReviewBackContext = setReviewBackContext;
+
     document.addEventListener('click', e => {
       const target = e.target.closest('[data-go]');
       if (target) {
+        if (target.dataset.go === 'reviewPage') {
+          const activePage = pages.find(p => p.classList.contains('active'));
+          setReviewBackContext((activePage && activePage.id) || 'calendarPage');
+        }
         go(target.dataset.go, true, target.classList.contains('nav-btn') ? target : null);
         if (target.classList.contains('nav-btn')) target.blur();
       }
@@ -77,6 +89,15 @@ const pages = [...document.querySelectorAll('.page')];
         stateSuccessPage: 'reviewPage'
       };
       if (id === 'homePage') return;
+      if (id === 'reviewPage') {
+        const context = reviewBackContext || { targetPage: 'calendarPage' };
+        go(context.targetPage || 'calendarPage');
+        if (context.restore && context.targetPage === 'summaryPage' && window.restoreSummaryPanel) {
+          setTimeout(() => window.restoreSummaryPanel(context.restore), 0);
+        }
+        reviewBackContext = { targetPage: 'calendarPage' };
+        return;
+      }
       go(backMap[id] || 'homePage');
     }
 

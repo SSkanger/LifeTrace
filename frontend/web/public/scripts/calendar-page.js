@@ -22,6 +22,30 @@ const daysEl = document.getElementById('calendarDays');
       return `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     }
 
+    function openDailyReview(date, backContext = null) {
+      const match = String(date || '').match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+      if (!match) return false;
+      if (backContext && window.setReviewBackContext) {
+        window.setReviewBackContext(backContext);
+      }
+      currentYear = Number(match[1]);
+      currentMonth = Number(match[2]) - 1;
+      selectedDay = Number(match[3]);
+      selectedReviewData = api.getDailyReview ? api.getDailyReview(selectedIsoDate()) : null;
+      const key = monthKey();
+      if (!memoryDaysByMonth[key]) {
+        memoryDaysByMonth[key] = new Set();
+      }
+      memoryDaysByMonth[key].add(selectedDay);
+      renderCalendar();
+      updateSelectedDayCopy();
+      if (typeof updateFavoriteButton === 'function') updateFavoriteButton();
+      go('reviewPage');
+      return true;
+    }
+
+    window.openDailyReview = openDailyReview;
+
     function dayKey(day) {
       return `${monthKey()}-${day}`;
     }
