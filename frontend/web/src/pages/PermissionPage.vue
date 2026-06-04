@@ -37,6 +37,5 @@
             <div class="toggle"></div>
           </div>
         </div>
-        <div class="grid-2" style="margin-top:13px"><button class="secondary" data-go="stateErrorPage">查看缺失状态</button><button class="primary" data-go="homePage">完成</button></div>
       </section>
 </template>

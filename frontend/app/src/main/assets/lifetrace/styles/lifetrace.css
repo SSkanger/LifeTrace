@@ -218,6 +218,213 @@
       transform: scale(.96);
     }
 
+    .back-btn.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .topbar.permission-mode {
+      justify-content: center;
+    }
+
+    .topbar.permission-mode .avatar-btn {
+      display: none;
+    }
+
+    .topbar.permission-mode .back-btn {
+      position: absolute;
+      left: 22px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .topbar.permission-mode .brand {
+      margin: 0;
+    }
+
+    .avatar-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      padding: 0;
+      color: #071120;
+      background:
+        radial-gradient(circle at 68% 28%, rgba(255, 255, 255, .9) 0 4px, transparent 5px),
+        linear-gradient(135deg, var(--gold-2), var(--gold) 58%, #76a9ff);
+      border: 1px solid rgba(255, 245, 232, .32);
+      box-shadow: 0 10px 26px rgba(246, 168, 75, .22);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .avatar-btn:active {
+      transform: scale(.96);
+    }
+
+    .account-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 70;
+      background: rgba(2, 4, 11, .38);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+
+    .account-scrim.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .account-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 78%;
+      height: 100%;
+      z-index: 90;
+      padding: 76px 18px 22px;
+      overflow-y: auto;
+      border-radius: 0 28px 28px 0;
+      color: var(--text);
+      background: rgba(8, 18, 34, .96);
+      border: 1px solid rgba(255, 255, 255, .13);
+      box-shadow: 0 28px 72px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .08);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-100%);
+      transform-origin: left center;
+      transition: transform .24s ease, opacity .18s ease;
+    }
+
+    .account-panel.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .account-head {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .account-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #071120;
+      font-weight: 850;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold) 58%, #76a9ff);
+      box-shadow: 0 12px 26px rgba(246, 168, 75, .24);
+      flex-shrink: 0;
+    }
+
+    .account-head h2 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .account-head span,
+    .account-row span,
+    .favorite-entry em {
+      color: var(--muted);
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    .account-card {
+      display: grid;
+      gap: 8px;
+      border-radius: 18px;
+      padding: 12px;
+      background: rgba(255, 255, 255, .055);
+      border: 1px solid rgba(255, 255, 255, .08);
+      margin-bottom: 14px;
+    }
+
+    .account-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .account-row b {
+      color: var(--gold-2);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .account-section-title {
+      color: var(--gold-2);
+      font-size: 13px;
+      font-weight: 760;
+      margin: 4px 0 10px;
+    }
+
+    .account-favorites {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .favorite-entry {
+      width: 100%;
+      min-height: 54px;
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text);
+      background: rgba(255, 255, 255, .055);
+      border: 1px solid rgba(255, 255, 255, .08);
+      text-align: left;
+    }
+
+    .favorite-entry b {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .favorite-entry i {
+      color: var(--gold-2);
+      font-style: normal;
+    }
+
+    .account-empty {
+      border-radius: 16px;
+      padding: 13px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .045);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .account-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .account-action {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 15px;
+      color: #071120;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      font-weight: 800;
+      font-size: 14px;
+    }
+
     main {
       position: absolute;
       inset: 118px 0 74px;

@@ -42,6 +42,14 @@ const pages = [...document.querySelectorAll('.page')];
       pages.forEach(p => p.classList.toggle('active', p.id === id));
       const activeNav = id.includes('calendar') || id === 'reviewPage' || id === 'stateLoadingPage' || id === 'stateEmptyPage' ? 'calendarPage' : id.includes('search') ? 'searchPage' : id.includes('summary') ? 'summaryPage' : id === 'homePage' ? 'homePage' : '';
       navs.forEach(n => n.classList.toggle('active', n.dataset.go === activeNav));
+      const backBtn = document.getElementById('backBtn');
+      const topbar = document.querySelector('.topbar');
+      if (topbar) {
+        topbar.classList.toggle('permission-mode', id === 'permissionPage');
+      }
+      if (backBtn) {
+        backBtn.classList.toggle('is-hidden', ['homePage', 'calendarPage', 'searchPage', 'summaryPage'].includes(id));
+      }
       playNavMotion(motionTarget || navs.find(n => n.dataset.go === activeNav));
       document.querySelector('main').scrollTop = 0;
       if (id === 'searchPage') {
