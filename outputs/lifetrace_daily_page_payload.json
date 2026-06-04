@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "lifetrace.page.v1",
+  "pageType": "daily",
+  "sourceKey": "2026-05-20",
+  "title": "课程学习与项目整理的一天",
+  "subtitle": "从数据库课堂到LifeTrace项目，傍晚的晚霞为这一天画上句号",
+  "dataQualityNote": "今日数据较为完整，涵盖了App使用、位置、照片等多维度信息，可以比较全面地回顾一天的经历。",
+  "summary": {
+    "headline": "学习、项目与晚霞",
+    "paragraph": "2026年5月20日（周三）是一个以课程学习和项目整理为主线的一天。上午在教学楼学习数据库相关内容，使用学习通并拍摄了课堂PPT。中午在食堂吃午饭。下午在图书馆查阅LifeTrace项目资料并用WPS整理文档，傍晚拍摄了校园晚霞。晚上回到宿舍使用哔哩哔哩放松。整体节奏紧凑，兼顾了学业与生活。",
+    "tags": [
+      "课程学习",
+      "图书馆自习",
+      "项目整理",
+      "校园晚霞",
+      "晚间放松"
+    ]
+  },
+  "quickFacts": [
+    {
+      "id": "main_location",
+      "label": "主要地点",
+      "value": "图书馆附近",
+      "description": "下午在图书馆停留约208分钟，是当天最长停留地点。"
+    },
+    {
+      "id": "main_activity",
+      "label": "主要活动",
+      "value": "项目整理",
+      "description": "下午使用浏览器和WPS整理LifeTrace项目资料，是当天最专注的时段。"
+    },
+    {
+      "id": "learning_duration",
+      "label": "学习时长",
+      "value": "约3小时10分钟",
+      "description": "上午课程（学习通45分钟+课堂190分钟）和下午项目整理（208分钟）合计。"
+    },
+    {
+      "id": "photo_highlight",
+      "label": "照片亮点",
+      "value": "校园晚霞",
+      "description": "傍晚拍摄了3张晚霞照片，增添生活气息。"
+    }
+  ],
+  "timeline": [
+    {
+      "id": "seg_morning_prepare",
+      "timeRange": "07:10-08:15",
+      "title": "早上在宿舍准备出门",
+      "category": "morning_prepare",
+      "description": "早上用户主要在宿舍区附近，期间查看微信消息，可能是在确认当天安排并准备出门。",
+      "evidence": [
+        "07:10-08:15 定位在宿舍区附近",
+        "07:35-07:58 使用微信约23分钟"
+      ],
+      "sourceTypes": [
+        "location",
+        "app_usage"
+      ],
+      "display": {
+        "icon": "home",
+        "tone": "slate"
+      }
+    },
+    {
+      "id": "seg_class",
+      "timeRange": "08:35-11:45",
+      "title": "上午在教学楼学习",
+      "category": "class",
+      "description": "上午用户主要在教学楼附近学习，并使用学习通，还拍摄了数据库相关课堂PPT。",
+      "evidence": [
+        "08:35-11:45 在教学楼附近停留约190分钟",
+        "09:05-09:50 使用学习通约45分钟",
+        "09:32 拍摄课堂PPT，OCR出现“数据库 系统 管理 索引”"
+      ],
+      "sourceTypes": [
+        "location",
+        "app_usage",
+        "photo"
+      ],
+      "display": {
+        "icon": "book-open",
+        "tone": "blue"
+      }
+    },
+    {
+      "id": "seg_meal",
+      "timeRange": "12:07-12:48",
+      "title": "中午在食堂吃午饭",
+      "category": "meal",
+      "description": "中午用户在食堂附近停留了一段时间，可能是在吃午饭。",
+      "evidence": [
+        "12:07-12:48 在食堂附近停留约41分钟"
+      ],
+      "sourceTypes": [
+        "location"
+      ],
+      "display": {
+        "icon": "utensils",
+        "tone": "green"
+      }
+    },
+    {
+      "id": "seg_project_work",
+      "timeRange": "13:37-17:05",
+      "title": "下午在图书馆整理项目资料",
+      "category": "project_work",
+      "description": "下午用户在图书馆停留较长时间，查找LifeTrace项目资料并整理项目文档。",
+      "evidence": [
+        "13:37-17:05 在图书馆附近停留约208分钟",
+        "14:05-14:48 使用浏览器查找项目资料",
+        "14:22 截图OCR出现“LifeTrace 技术路线 数据采集”",
+        "15:12-16:05 使用WPS整理项目文档"
+      ],
+      "sourceTypes": [
+        "location",
+        "app_usage",
+        "photo"
+      ],
+      "display": {
+        "icon": "laptop",
+        "tone": "violet"
+      }
+    },
+    {
+      "id": "seg_sunset",
+      "timeRange": "17:06-17:40",
+      "title": "傍晚拍摄校园晚霞",
+      "category": "daily_life",
+      "description": "傍晚用户拍摄了校园晚霞照片，这是一天中比较生活化的片段。",
+      "evidence": [
+        "17:31 拍摄校园晚霞照片3张"
+      ],
+      "sourceTypes": [
+        "photo"
+      ],
+      "display": {
+        "icon": "camera",
+        "tone": "amber"
+      }
+    },
+    {
+      "id": "seg_rest",
+      "timeRange": "19:19-23:10",
+      "title": "晚上回宿舍休息娱乐",
+      "category": "rest",
+      "description": "晚上用户主要在宿舍区附近，后半段使用哔哩哔哩放松。",
+      "evidence": [
+        "19:19-23:10 持续在宿舍区附近",
+        "21:40-22:38 使用哔哩哔哩约58分钟"
+      ],
+      "sourceTypes": [
+        "location",
+        "app_usage"
+      ],
+      "display": {
+        "icon": "moon",
+        "tone": "slate"
+      }
+    }
+  ],
+  "rankingSections": [
+    {
+      "id": "location_stays",
+      "title": "地点停留时长排行",
+      "unit": "minutes",
+      "items": [
+        {
+          "rank": 1,
+          "label": "宿舍区附近",
+          "value": "296分钟",
+          "description": "早晚在宿舍区共计约296分钟（65+231），主要进行准备、休息和娱乐。"
+        },
+        {
+          "rank": 2,
+          "label": "图书馆附近",
+          "value": "208分钟",
+          "description": "下午在图书馆专心整理项目资料。"
+        },
+        {
+          "rank": 3,
+          "label": "教学楼附近",
+          "value": "190分钟",
+          "description": "上午上课学习。"
+        },
+        {
+          "rank": 4,
+          "label": "食堂附近",
+          "value": "41分钟",
+          "description": "午餐时间。"
+        }
+      ]
+    },
+    {
+      "id": "app_usage",
+      "title": "App使用时长排行",
+      "unit": "minutes",
+      "items": [
+        {
+          "rank": 1,
+          "label": "哔哩哔哩",
+          "value": "58分钟",
+          "description": "晚间娱乐放松。"
+        },
+        {
+          "rank": 2,
+          "label": "WPS",
+          "value": "53分钟",
+          "description": "下午整理项目文档。"
+        },
+        {
+          "rank": 3,
+          "label": "学习通",
+          "value": "45分钟",
+          "description": "上午课堂使用。"
+        },
+        {
+          "rank": 4,
+          "label": "浏览器",
+          "value": "43分钟",
+          "description": "查找项目资料。"
+        },
+        {
+          "rank": 5,
+          "label": "微信",
+          "value": "23分钟",
+          "description": "早上查看消息。"
+        }
+      ]
+    }
+  ],
+  "insightCards": [
+    {
+      "id": "main_thread",
+      "title": "今天的主线：学业与项目的双线并行",
+      "description": "上午专注数据库课堂，下午投入LifeTrace项目，二者构成了今天的主要学习与工作内容。这种上午课程、下午项目的模式可能是近期的常态。",
+      "evidence": [
+        "上午在教学楼使用学习通并拍摄数据库PPT",
+        "下午在图书馆使用浏览器和WPS处理LifeTrace项目资料"
+      ],
+      "type": "highlight"
+    },
+    {
+      "id": "project_progress",
+      "title": "项目整理进入技术细节阶段",
+      "description": "下午保存的资料截图出现了“技术路线”“数据采集”“生活感知”“记忆管理Agent”等关键词，表明项目已进入具体技术方案讨论阶段，可能正在梳理系统架构。",
+      "evidence": [
+        "14:22 截图OCR：LifeTrace 技术路线 数据采集",
+        "15:47 截图OCR：生活感知 记忆管理 Agent"
+      ],
+      "type": "highlight"
+    },
+    {
+      "id": "life_rhythm",
+      "title": "规律的日常节奏",
+      "description": "今天呈现出较规律的生活节奏：早上宿舍准备、上午上课、中午食堂、下午图书馆、傍晚拍照、晚上回宿舍放松。这种节奏可能有助于保持高效和平衡。",
+      "evidence": [
+        "各个生活片段的时间段衔接较为紧凑",
+        "中午和傍晚有明确的休息和生活化时刻"
+      ],
+      "type": "pattern"
+    },
+    {
+      "id": "evening_relaxation",
+      "title": "晚间娱乐时长略长，可适当调整",
+      "description": "晚上使用哔哩哔哩约58分钟，是当天使用时长最长的App。考虑到第二天可能有早课，或许可以稍微缩短娱乐时间以保障休息。",
+      "evidence": [
+        "21:40-22:38 使用哔哩哔哩",
+        "次日为周四，可能有早课安排"
+      ],
+      "type": "suggestion"
+    }
+  ],
+  "memoryQuestions": [
+    "今天下午在图书馆整理项目资料时，是什么让你最专注？",
+    "傍晚的校园晚霞让你想起了什么？",
+    "数据库课堂的内容对你后续的项目有帮助吗？",
+    "如果明天想要更高效，你会调整哪个时间段？"
+  ],
+  "frontendHints": {
+    "defaultView": "timeline",
+    "accent": "blue",
+    "density": "comfortable"
+  }
+}

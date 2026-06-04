@@ -1,0 +1,228 @@
+{
+  "dateKey": "2026-05-20",
+  "basicInfo": {
+    "weekday": "Wednesday",
+    "dayType": "课程学习 + 图书馆自习 + 项目整理 + 晚间休息",
+    "dataSources": [
+      "app_usage",
+      "location",
+      "photo_metadata",
+      "photo_ocr_text",
+      "photo_scene_recognition"
+    ],
+    "dataCompleteness": "high"
+  },
+  "appUsage": [
+    {
+      "timeRange": "07:35-07:58",
+      "appName": "微信",
+      "appCategory": "社交",
+      "durationMinutes": 23,
+      "note": "起床后查看消息和群通知。"
+    },
+    {
+      "timeRange": "09:05-09:50",
+      "appName": "学习通",
+      "appCategory": "学习",
+      "durationMinutes": 45,
+      "note": "上午课程相关使用。"
+    },
+    {
+      "timeRange": "14:05-14:48",
+      "appName": "浏览器",
+      "appCategory": "资料查询",
+      "durationMinutes": 43,
+      "note": "下午查找项目资料。"
+    },
+    {
+      "timeRange": "15:12-16:05",
+      "appName": "WPS",
+      "appCategory": "文档处理",
+      "durationMinutes": 53,
+      "note": "下午整理项目文档。"
+    },
+    {
+      "timeRange": "21:40-22:38",
+      "appName": "哔哩哔哩",
+      "appCategory": "娱乐",
+      "durationMinutes": 58,
+      "note": "睡前娱乐放松。"
+    }
+  ],
+  "locationStays": [
+    {
+      "timeRange": "07:10-08:15",
+      "locationLabel": "宿舍区附近",
+      "stayMinutes": 65,
+      "stayType": "起床/出门准备",
+      "confidence": 0.88
+    },
+    {
+      "timeRange": "08:35-11:45",
+      "locationLabel": "教学楼附近",
+      "stayMinutes": 190,
+      "stayType": "上课/学习",
+      "confidence": 0.87
+    },
+    {
+      "timeRange": "12:07-12:48",
+      "locationLabel": "食堂附近",
+      "stayMinutes": 41,
+      "stayType": "午餐",
+      "confidence": 0.82
+    },
+    {
+      "timeRange": "13:37-17:05",
+      "locationLabel": "图书馆附近",
+      "stayMinutes": 208,
+      "stayType": "自习/查资料/项目整理",
+      "confidence": 0.9
+    },
+    {
+      "timeRange": "19:19-23:10",
+      "locationLabel": "宿舍区附近",
+      "stayMinutes": 231,
+      "stayType": "文档整理/休息娱乐",
+      "confidence": 0.89
+    }
+  ],
+  "photoMoments": [
+    {
+      "time": "09:32",
+      "sceneLabel": "课堂PPT",
+      "photoCount": 1,
+      "ocrText": "数据库 系统 管理 索引",
+      "note": "上午拍摄课堂 PPT。"
+    },
+    {
+      "time": "14:22",
+      "sceneLabel": "项目资料页面",
+      "photoCount": 1,
+      "ocrText": "LifeTrace 技术路线 数据采集",
+      "note": "下午保存项目资料页面截图。"
+    },
+    {
+      "time": "15:47",
+      "sceneLabel": "文档页面",
+      "photoCount": 1,
+      "ocrText": "生活感知 记忆管理 Agent",
+      "note": "下午保存项目文档截图。"
+    },
+    {
+      "time": "17:31",
+      "sceneLabel": "校园晚霞",
+      "photoCount": 3,
+      "ocrText": "",
+      "note": "傍晚拍摄晚霞照片。"
+    }
+  ],
+  "memorySegments": [
+    {
+      "timeRange": "07:10-08:15",
+      "segmentType": "morning_prepare",
+      "title": "早上在宿舍准备出门",
+      "relatedApps": [
+        "微信"
+      ],
+      "relatedLocations": [
+        "宿舍区附近"
+      ],
+      "relatedPhotos": [],
+      "evidence": [
+        "07:10-08:15 定位在宿舍区附近",
+        "07:35-07:58 使用微信约 23 分钟"
+      ],
+      "description": "早上用户主要在宿舍区附近，期间查看微信消息，可能是在确认当天安排并准备出门。"
+    },
+    {
+      "timeRange": "08:35-11:45",
+      "segmentType": "class",
+      "title": "上午在教学楼学习",
+      "relatedApps": [
+        "学习通"
+      ],
+      "relatedLocations": [
+        "教学楼附近"
+      ],
+      "relatedPhotos": [
+        "课堂PPT"
+      ],
+      "evidence": [
+        "08:35-11:45 在教学楼附近停留约 190 分钟",
+        "09:05-09:50 使用学习通约 45 分钟",
+        "09:32 拍摄课堂 PPT，OCR 出现“数据库 系统 管理 索引”"
+      ],
+      "description": "上午用户主要在教学楼附近学习，并使用学习通，还拍摄了数据库相关课堂 PPT。"
+    },
+    {
+      "timeRange": "12:07-12:48",
+      "segmentType": "meal",
+      "title": "中午在食堂吃午饭",
+      "relatedApps": [],
+      "relatedLocations": [
+        "食堂附近"
+      ],
+      "relatedPhotos": [],
+      "evidence": [
+        "12:07-12:48 在食堂附近停留约 41 分钟"
+      ],
+      "description": "中午用户在食堂附近停留了一段时间，可能是在吃午饭。"
+    },
+    {
+      "timeRange": "13:37-17:05",
+      "segmentType": "project_work",
+      "title": "下午在图书馆整理项目资料",
+      "relatedApps": [
+        "浏览器",
+        "WPS"
+      ],
+      "relatedLocations": [
+        "图书馆附近"
+      ],
+      "relatedPhotos": [
+        "项目资料页面",
+        "文档页面"
+      ],
+      "evidence": [
+        "13:37-17:05 在图书馆附近停留约 208 分钟",
+        "14:05-14:48 使用浏览器查找项目资料",
+        "14:22 截图 OCR 出现“LifeTrace 技术路线 数据采集”",
+        "15:12-16:05 使用 WPS 整理项目文档",
+        "15:47 截图 OCR 出现“生活感知 记忆管理 Agent”"
+      ],
+      "description": "下午用户在图书馆停留较长时间，查找 LifeTrace 项目资料并整理项目文档。"
+    },
+    {
+      "timeRange": "17:06-17:40",
+      "segmentType": "daily_life",
+      "title": "傍晚拍摄校园晚霞",
+      "relatedApps": [],
+      "relatedLocations": [],
+      "relatedPhotos": [
+        "校园晚霞"
+      ],
+      "evidence": [
+        "17:31 拍摄校园晚霞照片 3 张"
+      ],
+      "description": "傍晚用户拍摄了校园晚霞照片，这是一天中比较生活化的片段。"
+    },
+    {
+      "timeRange": "19:19-23:10",
+      "segmentType": "rest",
+      "title": "晚上回宿舍休息娱乐",
+      "relatedApps": [
+        "哔哩哔哩"
+      ],
+      "relatedLocations": [
+        "宿舍区附近"
+      ],
+      "relatedPhotos": [],
+      "evidence": [
+        "19:19-23:10 持续在宿舍区附近",
+        "21:40-22:38 使用哔哩哔哩约 58 分钟"
+      ],
+      "description": "晚上用户主要在宿舍区附近，后半段使用哔哩哔哩放松。"
+    }
+  ],
+  "dailyContextText": "2026-05-20 是一个以课程学习、图书馆自习、项目整理和晚间休息为主的一天。早上用户主要在宿舍区附近，查看微信消息并准备出门。上午用户在教学楼附近停留较长时间，使用学习通，并拍摄了与数据库内容相关的课堂 PPT。中午用户在食堂附近停留，可能是在吃午饭。下午用户前往图书馆，使用浏览器查找 LifeTrace 项目资料，并用 WPS 整理项目文档，相关截图中出现了技术路线、数据采集、生活感知和记忆管理 Agent 等内容。傍晚用户拍摄了校园晚霞照片。晚上用户回到宿舍区附近，并使用哔哩哔哩进行娱乐放松。"
+}

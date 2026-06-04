@@ -1,0 +1,59 @@
+{
+  "readGuide": {
+    "说明": "本 JSON 用于说明 LifeTrace 周度阶段总结数据的读取格式。周数据不是已经写好的周总结，而是由连续 7 天的单日生活数据组成。AI 读取时先确认 weekKey、weekRange 和数据完整度，再逐日读取 days 中的 dailyContextText、memorySegments、appUsage、locationStays 和 photoMoments，从 7 天事实中选择重点并总结这一周。",
+    "数据结构顺序": [
+      "weekKey",
+      "basicInfo",
+      "days"
+    ],
+    "AI读取顺序": [
+      "weekKey",
+      "basicInfo",
+      "days[].dateKey",
+      "days[].basicInfo",
+      "days[].dailyContextText",
+      "days[].memorySegments",
+      "days[].appUsage",
+      "days[].locationStays",
+      "days[].photoMoments"
+    ],
+    "weekKey": {
+      "作用": "这一周数据的周主键，用于周总结归档和前端查询。",
+      "字段含义": "ISO 周，格式为 yyyy-Www，例如 2026-W21。"
+    },
+    "basicInfo": {
+      "作用": "说明这一周阶段总结的基本情况。",
+      "字段": {
+        "weekRange": "本周数据覆盖的日期范围，格式为 yyyy-MM-dd 至 yyyy-MM-dd。",
+        "summaryType": "总结类型，例如 weekly_stage_summary，表示周度阶段总结。",
+        "availableDays": "本周实际有数据的天数。",
+        "missingDays": "本周缺失数据的日期列表。",
+        "dataCompleteness": "本周数据完整程度，high 表示 7 天数据较完整，medium 表示部分日期或来源缺失，low 表示数据较少。",
+        "dataSources": "本周总结使用的数据来源，例如 daily_context_text、memory_segments、app_usage、location_stays、photo_moments。"
+      }
+    },
+    "days": {
+      "作用": "本周 7 天的单日数据列表，每一项都遵循 LifeTrace 单日生活数据格式。",
+      "读取规则": "逐日读取，不要把某一天的线索套用到另一日。生成周总结时可以概括反复出现的主线，但必须能追溯到具体日期或证据。"
+    },
+    "单日字段说明": {
+      "dateKey": "日期，格式为 yyyy-MM-dd。",
+      "basicInfo": "当天基本信息，包括 weekday、dayType、dataSources 和 dataCompleteness。",
+      "appUsage": "当天 App 使用记录，用来辅助判断学习、社交、开发、文档处理、娱乐等活动。",
+      "locationStays": "当天地点停留记录，用来辅助判断教学楼、图书馆、宿舍、食堂等场景。",
+      "photoMoments": "当天照片、截图、OCR 和场景识别结果，用来补充视觉证据。",
+      "memorySegments": "当天核心生活片段，由 App、地点和照片线索融合而成。",
+      "dailyContextText": "当天按时间顺序压缩后的自然语言上下文。"
+    },
+    "周总结生成规则": [
+      "周总结必须基于 days 里的 7 天数据，不要凭空生成周内事件。",
+      "可以选择 2 到 5 个本周重点，例如课程学习、项目推进、后端开发、用户研究、生活片段。",
+      "可以总结本周生活节奏，例如白天课程/项目、晚间宿舍整理和休息，但要能从多天地点和 App 记录中找到依据。",
+      "可以推荐最值得回看的日期或片段，但 targetDate 必须来自 days[].dateKey。",
+      "如果某些天 dataCompleteness 为 medium，要用温和、不绝对的表达。",
+      "不要输出 confidence、内部字段名、技术字段。",
+      "不要把一日的 OCR 内容扩展成整周都发生的事实。",
+      "不要把地点停留直接等同于确定行为，除非 memorySegments 或 evidence 中有对应说明。"
+    ]
+  }
+}

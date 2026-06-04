@@ -1,0 +1,93 @@
+{
+  "readGuide": {
+    "说明": "本 JSON 用于说明 LifeTrace 月度阶段总结数据的读取格式。数据由多天 dailyData 汇总生成，已经过按月聚合、活动分类、地点统计、App 使用统计、照片场景统计和整体摘要压缩。AI 读取时先确认月份和数据完整度，再读取 monthlyContextText 快速理解整个月整体情况，然后读取 monthlyStats、monthHighlights 和 possiblePatterns 获取统计依据、重点内容和可能规律。",
+    "数据结构顺序": [
+      "monthKey",
+      "basicInfo",
+      "monthlyStats",
+      "monthHighlights",
+      "possiblePatterns",
+      "monthlyContextText"
+    ],
+    "AI读取顺序": [
+      "monthKey",
+      "basicInfo",
+      "monthlyContextText",
+      "monthlyStats",
+      "monthHighlights",
+      "possiblePatterns"
+    ],
+    "monthKey": {
+      "作用": "这个月数据的月份主键，用于按月查询、月历标记和阶段总结归档。",
+      "字段含义": "月份，格式为 yyyy-MM。"
+    },
+    "basicInfo": {
+      "作用": "说明这个月阶段总结的基本情况。",
+      "字段": {
+        "monthRange": "本月数据覆盖的日期范围，格式为 yyyy-MM-dd 至 yyyy-MM-dd。",
+        "summaryType": "总结类型，例如 monthly_stage_summary，表示月度阶段总结。",
+        "availableDays": "本月实际有数据的天数。",
+        "missingDays": "本月缺失数据的日期列表。",
+        "dataCompleteness": "本月数据完整程度，high 表示数据较完整，medium 表示部分日期缺失，low 表示数据较少。",
+        "dataSources": "本月总结使用的数据来源，例如 daily_context_text、memory_segments、app_usage、location_stays、photo_moments。"
+      }
+    },
+    "monthlyStats": {
+      "作用": "记录本月的统计结果，用于判断本月主要地点、主要活动、App 使用类型和照片场景分布。",
+      "字段": {
+        "mainLocationRanking": "本月主要地点排行，按总停留时间或出现频率排序。",
+        "mainActivityRanking": "本月主要活动排行，例如课程学习、项目整理、休息娱乐、日常生活等。",
+        "appCategoryRanking": "本月 App 类型使用排行，例如学习、文档处理、资料查询、社交、娱乐等。",
+        "photoSceneRanking": "本月照片或截图场景排行，例如课堂PPT、项目文档、代码界面、校园风景、餐食等。"
+      },
+      "子字段说明": {
+        "locationLabel": "地点标签，例如宿舍区附近、图书馆附近、教学楼附近、食堂附近。",
+        "totalStayMinutes": "该地点本月总停留时长，单位为分钟。",
+        "mainStayType": "该地点主要对应的停留类型，例如休息、上课、自习、用餐。",
+        "activityType": "活动类型，例如课程学习、项目整理、休息娱乐。",
+        "estimatedMinutes": "该活动本月估算时长，单位为分钟。",
+        "appCategory": "App 类型。",
+        "totalMinutes": "该 App 类型本月总使用时长，单位为分钟。",
+        "sceneLabel": "照片或截图场景标签。",
+        "count": "该照片场景本月出现次数。",
+        "description": "对统计结果的自然语言解释。"
+      },
+      "读取规则": "monthlyStats 主要用于提供趋势和统计依据。生成月总结时可以引用统计结论，但不要只根据单个统计字段做绝对判断。"
+    },
+    "monthHighlights": {
+      "作用": "记录本月值得强调的重点内容，用来生成月总结中的亮点部分。",
+      "字段": {
+        "title": "本月亮点标题。",
+        "description": "本月亮点说明。",
+        "evidence": "支持该亮点的证据，可以来自地点统计、活动统计、App 使用统计或照片场景统计。"
+      },
+      "读取规则": "monthHighlights 可以作为月总结中的重点内容来源，但应与 monthlyStats 中的统计结果保持一致。"
+    },
+    "possiblePatterns": {
+      "作用": "记录从本月数据中推测出的生活规律或行为模式。",
+      "字段": {
+        "patternName": "规律名称，例如白天学习和项目推进，晚上回宿舍整理或放松。",
+        "evidence": "支持该规律的证据列表。",
+        "description": "对该规律的自然语言解释。"
+      },
+      "读取规则": "possiblePatterns 属于推测性总结，输出时应使用“大致呈现”“可能说明”“看起来”等表达，避免绝对化。"
+    },
+    "monthlyContextText": {
+      "作用": "本月压缩后的连续文本总结，由 monthlyStats、monthHighlights 和 possiblePatterns 汇总生成。",
+      "字段含义": "按月度视角整理后的阶段总结上下文，用于让 AI 快速理解整个月整体发生了什么。"
+    },
+    "总体读取规则": [
+      "先根据 monthKey 和 basicInfo 确认月份、日期范围和数据完整度。",
+      "然后读取 monthlyContextText，快速理解本月整体情况。",
+      "再读取 monthlyStats，查看本月主要地点、主要活动、App 使用和照片场景统计。",
+      "如果需要生成重点总结，读取 monthHighlights。",
+      "如果需要分析生活规律或变化趋势，读取 possiblePatterns。",
+      "monthlyContextText 在数据结构中放最后，因为它是前面月度数据汇总后的压缩总结。",
+      "所有判断必须能在 monthlyStats、monthHighlights 或 possiblePatterns 中找到依据。",
+      "不确定的判断要使用“可能”“大概率”“看起来像是”“大致呈现”。",
+      "不要输出 confidence、内部字段名、技术字段。",
+      "不要编造 JSON 中没有出现的事件、地点、日期或趋势。",
+      "如果 missingDays 不为空，生成总结时应避免把缺失日期也当作完整记录分析。"
+    ]
+  }
+}

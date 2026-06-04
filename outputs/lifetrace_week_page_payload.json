@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "lifetrace.page.v1",
+  "pageType": "week",
+  "sourceKey": "2026-W21",
+  "title": "2026-W21 周总结",
+  "subtitle": "从连续 7 天的每日线索中回看这一周的学习、项目和生活节奏。",
+  "dataQualityNote": "这一周的数据较完整，适合按时间线回看。",
+  "summary": {
+    "headline": "学习与项目交替推进",
+    "paragraph": "2026-05-18 到 2026-05-24 这一周的记录比较完整，主线大致围绕课程预习展开。课程相关线索出现在 5 天，项目相关线索出现在 6 天。同时有 3 天保留了散步、拍照或晚间放松等生活片段。",
+    "tags": [
+      "课程预习",
+      "数据库复习",
+      "宿舍整理",
+      "小组讨论",
+      "项目调研",
+      "晚间散步"
+    ]
+  },
+  "quickFacts": [
+    {
+      "id": "week_range",
+      "label": "时间范围",
+      "value": "2026-05-18 至 2026-05-24",
+      "description": "本周总结覆盖的日期范围。"
+    },
+    {
+      "id": "available_days",
+      "label": "覆盖天数",
+      "value": "7 天",
+      "description": "用于判断周总结的数据覆盖范围。"
+    },
+    {
+      "id": "main_location",
+      "label": "主要地点",
+      "value": "图书馆附近",
+      "description": "本周累计停留约 1723 分钟。"
+    },
+    {
+      "id": "main_activity",
+      "label": "主要主线",
+      "value": "课程预习",
+      "description": "根据 7 天 dayType 和生活片段综合整理。"
+    }
+  ],
+  "timeline": [],
+  "rankingSections": [
+    {
+      "id": "daily_overview",
+      "title": "每日主线",
+      "unit": "mixed",
+      "items": [
+        {
+          "rank": 1,
+          "label": "2026-05-18",
+          "value": "4 个片段",
+          "description": "2026-05-18 是本周的课程准备日。早上在宿舍查看课程群和小组消息，上午在教学楼学习数据库相关内容，课堂板书中出现索引、查询优化和 B+树。"
+        },
+        {
+          "rank": 2,
+          "label": "2026-05-19",
+          "value": "4 个片段",
+          "description": "2026-05-19 以小组讨论和项目调研为主。早上通过微信确认安排，上午在教学楼附近进行设计思维小组讨论，白板中出现用户旅程、触点和数据来源。"
+        },
+        {
+          "rank": 3,
+          "label": "2026-05-20",
+          "value": "6 个片段",
+          "description": "2026-05-20 是一个以课程学习、图书馆自习、项目整理和晚间休息为主的一天。早上用户主要在宿舍区附近，查看微信消息并准备出门。"
+        },
+        {
+          "rank": 4,
+          "label": "2026-05-21",
+          "value": "4 个片段",
+          "description": "2026-05-21 主要围绕 LifeTrace 后端开发和搜索接口调试。上午在图书馆查看后端检索代码，并查询 embedding 与 Chroma 资料。"
+        },
+        {
+          "rank": 5,
+          "label": "2026-05-22",
+          "value": "4 个片段",
+          "description": "2026-05-22 以设计思维课程、用户研究整理和 LifeTrace 汇报材料为主。上午在教学楼上课，PPT 中出现共情、定义、创意、原型和测试。"
+        },
+        {
+          "rank": 6,
+          "label": "2026-05-23",
+          "value": "4 个片段",
+          "description": "2026-05-23 是周末里偏向写作和代码整理的一天。上午在图书馆用 WPS 写课程报告，内容涉及设计思维、LifeTrace 和用户需求。"
+        },
+        {
+          "rank": 7,
+          "label": "2026-05-24",
+          "value": "4 个片段",
+          "description": "2026-05-24 是本周收束和计划整理的一天。上午在宿舍用 WPS 整理本周项目回顾，并通过微信同步下周任务。"
+        }
+      ]
+    },
+    {
+      "id": "main_locations",
+      "title": "主要地点",
+      "unit": "minutes",
+      "items": [
+        {
+          "rank": 1,
+          "label": "图书馆附近",
+          "value": "1723 分钟",
+          "description": "自习/资料查询、项目调研"
+        },
+        {
+          "rank": 2,
+          "label": "宿舍区附近",
+          "value": "1476 分钟",
+          "description": "起床/查看通知、文档整理/休息"
+        },
+        {
+          "rank": 3,
+          "label": "教学楼附近",
+          "value": "690 分钟",
+          "description": "课程学习、小组讨论"
+        },
+        {
+          "rank": 4,
+          "label": "食堂附近",
+          "value": "189 分钟",
+          "description": "午餐、午餐"
+        },
+        {
+          "rank": 5,
+          "label": "校园道路/湖边附近",
+          "value": "50 分钟",
+          "description": "散步/拍照"
+        },
+        {
+          "rank": 6,
+          "label": "操场附近",
+          "value": "45 分钟",
+          "description": "散步/拍照"
+        }
+      ]
+    },
+    {
+      "id": "app_categories",
+      "title": "App 类型",
+      "unit": "minutes",
+      "items": [
+        {
+          "rank": 1,
+          "label": "文档处理",
+          "value": "423 分钟",
+          "description": "本周 文档处理 类 App 使用记录汇总。"
+        },
+        {
+          "rank": 2,
+          "label": "娱乐",
+          "value": "252 分钟",
+          "description": "本周 娱乐 类 App 使用记录汇总。"
+        },
+        {
+          "rank": 3,
+          "label": "开发",
+          "value": "214 分钟",
+          "description": "本周 开发 类 App 使用记录汇总。"
+        },
+        {
+          "rank": 4,
+          "label": "资料查询",
+          "value": "207 分钟",
+          "description": "本周 资料查询 类 App 使用记录汇总。"
+        },
+        {
+          "rank": 5,
+          "label": "社交",
+          "value": "145 分钟",
+          "description": "本周 社交 类 App 使用记录汇总。"
+        },
+        {
+          "rank": 6,
+          "label": "学习",
+          "value": "138 分钟",
+          "description": "本周 学习 类 App 使用记录汇总。"
+        }
+      ]
+    },
+    {
+      "id": "photo_scenes",
+      "title": "照片场景",
+      "unit": "count",
+      "items": [
+        {
+          "rank": 1,
+          "label": "校园晚霞",
+          "value": "3 张",
+          "description": "本周出现的 校园晚霞 照片或截图线索。"
+        },
+        {
+          "rank": 2,
+          "label": "课堂板书",
+          "value": "2 张",
+          "description": "本周出现的 课堂板书 照片或截图线索。"
+        },
+        {
+          "rank": 3,
+          "label": "校园湖边",
+          "value": "2 张",
+          "description": "本周出现的 校园湖边 照片或截图线索。"
+        },
+        {
+          "rank": 4,
+          "label": "代码界面",
+          "value": "2 张",
+          "description": "本周出现的 代码界面 照片或截图线索。"
+        },
+        {
+          "rank": 5,
+          "label": "课程PPT",
+          "value": "2 张",
+          "description": "本周出现的 课程PPT 照片或截图线索。"
+        },
+        {
+          "rank": 6,
+          "label": "操场天空",
+          "value": "2 张",
+          "description": "本周出现的 操场天空 照片或截图线索。"
+        }
+      ]
+    }
+  ],
+  "insightCards": [
+    {
+      "id": "week_main_thread",
+      "title": "这一周以学习和项目推进为主",
+      "description": "2026-05-18 到 2026-05-24 这一周的记录比较完整，主线大致围绕课程预习展开。课程相关线索出现在 5 天，项目相关线索出现在 6 天。同时有 3 天保留了散步、拍照或晚间放松等生活片段。",
+      "evidence": [
+        "本周覆盖 7 天，共 30 个生活片段",
+        "主要地点为 图书馆附近",
+        "反复出现的主题包括 课程预习"
+      ],
+      "type": "highlight"
+    },
+    {
+      "id": "project_progress",
+      "title": "LifeTrace 项目线索连续出现",
+      "description": "多天记录中出现了 LifeTrace、前后端接口、数据契约、周总结脚本和静态 JSON 等项目相关内容。",
+      "evidence": [
+        "2026-05-19 出现项目相关记录",
+        "2026-05-20 出现项目相关记录",
+        "2026-05-21 出现项目相关记录",
+        "2026-05-22 出现项目相关记录",
+        "2026-05-23 出现项目相关记录"
+      ],
+      "type": "pattern"
+    },
+    {
+      "id": "visual_memory",
+      "title": "照片补充了课程、项目和校园生活",
+      "description": "本周共有 25 张照片或截图线索，覆盖课堂、文档、代码界面和校园生活场景。",
+      "evidence": [
+        "2026-05-18 有照片或截图记录",
+        "2026-05-19 有照片或截图记录",
+        "2026-05-20 有照片或截图记录",
+        "2026-05-21 有照片或截图记录",
+        "2026-05-22 有照片或截图记录"
+      ],
+      "type": "highlight"
+    },
+    {
+      "id": "review_suggestion",
+      "title": "适合从项目推进最完整的一天回看",
+      "description": "可以优先回看 2026-05-20，这一天的片段数量较多，适合作为本周入口。",
+      "evidence": [
+        "2026-05-20 有 6 个生活片段"
+      ],
+      "type": "suggestion"
+    }
+  ],
+  "memoryQuestions": [
+    "这一周最稳定推进的事情是什么？",
+    "哪一天最适合作为本周项目进展的入口？",
+    "学习、项目和休息之间的节奏是否比较平衡？"
+  ],
+  "frontendHints": {
+    "defaultView": "overview",
+    "accent": "violet",
+    "density": "comfortable"
+  }
+}

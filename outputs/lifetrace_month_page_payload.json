@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "lifetrace.page.v1",
+  "pageType": "month",
+  "sourceKey": "2026-05",
+  "title": "2026年5月记忆总结",
+  "subtitle": "课程学习与项目推进相伴的一个月",
+  "dataQualityNote": "本月数据完整度为中等，共有3天（5月3日、11日、26日）数据缺失，部分分析可能不完全覆盖全月。",
+  "summary": {
+    "headline": "学习项目交替，生活节奏分明",
+    "paragraph": "2026年5月覆盖了28天的数据，整体呈现白天学习或推进项目、晚上回宿舍整理或放松的节奏。宿舍区是停留最久的区域，主要对应晚间文档整理和娱乐；图书馆和教学楼则是学习与项目推进的核心地点。课程学习和LifeTrace项目整理是本月主要活动，照片记录涵盖了课堂PPT、项目文档、校园风景和餐食，既有专注的工作学习，也有生活化片段。",
+    "tags": [
+      "课程学习",
+      "项目推进",
+      "图书馆自习",
+      "校园生活",
+      "晚间放松"
+    ]
+  },
+  "quickFacts": [
+    {
+      "id": "main_location",
+      "label": "主要地点",
+      "value": "宿舍区附近",
+      "description": "总停留5260分钟，主要休息、文档整理和娱乐"
+    },
+    {
+      "id": "top_activity",
+      "label": "主要活动",
+      "value": "课程学习",
+      "description": "约3320分钟，包括上课和课后学习"
+    },
+    {
+      "id": "top_app",
+      "label": "常用App类型",
+      "value": "文档处理",
+      "description": "880分钟，WPS和腾讯文档使用较多"
+    },
+    {
+      "id": "photo_scene",
+      "label": "常见照片场景",
+      "value": "课堂PPT",
+      "description": "13次，课程记录较多"
+    }
+  ],
+  "timeline": [],
+  "rankingSections": [
+    {
+      "id": "location_ranking",
+      "title": "地点停留排行",
+      "unit": "minutes",
+      "items": [
+        {
+          "rank": 1,
+          "label": "宿舍区附近",
+          "value": "5260分钟",
+          "description": "休息、文档整理、娱乐"
+        },
+        {
+          "rank": 2,
+          "label": "图书馆附近",
+          "value": "2840分钟",
+          "description": "自习、查资料、项目整理"
+        },
+        {
+          "rank": 3,
+          "label": "教学楼附近",
+          "value": "2160分钟",
+          "description": "上课、课程学习"
+        },
+        {
+          "rank": 4,
+          "label": "食堂附近",
+          "value": "1320分钟",
+          "description": "用餐"
+        },
+        {
+          "rank": 5,
+          "label": "校园道路/湖边/操场附近",
+          "value": "960分钟",
+          "description": "通勤、散步、拍照"
+        }
+      ]
+    },
+    {
+      "id": "activity_ranking",
+      "title": "活动类型排行",
+      "unit": "minutes",
+      "items": [
+        {
+          "rank": 1,
+          "label": "课程学习",
+          "value": "3320分钟",
+          "description": "教学楼停留、学习类App使用"
+        },
+        {
+          "rank": 2,
+          "label": "项目整理",
+          "value": "2680分钟",
+          "description": "资料整理、Demo准备"
+        },
+        {
+          "rank": 3,
+          "label": "休息娱乐",
+          "value": "2260分钟",
+          "description": "晚间宿舍放松"
+        },
+        {
+          "rank": 4,
+          "label": "资料查询",
+          "value": "1450分钟",
+          "description": "课程与项目相关"
+        },
+        {
+          "rank": 5,
+          "label": "日常生活",
+          "value": "1380分钟",
+          "description": "用餐、通勤、散步"
+        }
+      ]
+    },
+    {
+      "id": "app_category_ranking",
+      "title": "App类型使用排行",
+      "unit": "minutes",
+      "items": [
+        {
+          "rank": 1,
+          "label": "文档处理",
+          "value": "880分钟",
+          "description": "WPS、腾讯文档"
+        },
+        {
+          "rank": 2,
+          "label": "学习",
+          "value": "860分钟",
+          "description": "学习通等"
+        },
+        {
+          "rank": 3,
+          "label": "资料查询",
+          "value": "760分钟",
+          "description": "浏览器"
+        },
+        {
+          "rank": 4,
+          "label": "社交",
+          "value": "650分钟",
+          "description": "微信"
+        },
+        {
+          "rank": 5,
+          "label": "娱乐",
+          "value": "590分钟",
+          "description": "哔哩哔哩、网易云音乐"
+        },
+        {
+          "rank": 6,
+          "label": "开发",
+          "value": "420分钟",
+          "description": "VSCode"
+        }
+      ]
+    },
+    {
+      "id": "photo_scene_ranking",
+      "title": "照片场景排行",
+      "unit": "count",
+      "items": [
+        {
+          "rank": 1,
+          "label": "课堂PPT",
+          "value": "13次",
+          "description": "课程学习记录"
+        },
+        {
+          "rank": 2,
+          "label": "项目文档",
+          "value": "11次",
+          "description": "LifeTrace相关"
+        },
+        {
+          "rank": 3,
+          "label": "校园风景",
+          "value": "9次",
+          "description": "湖边、晚霞等"
+        },
+        {
+          "rank": 4,
+          "label": "课堂板书",
+          "value": "8次",
+          "description": "数据库、并发控制等"
+        },
+        {
+          "rank": 5,
+          "label": "餐食",
+          "value": "7次",
+          "description": "午餐和晚餐"
+        },
+        {
+          "rank": 6,
+          "label": "代码界面",
+          "value": "6次",
+          "description": "Demo数据结构"
+        }
+      ]
+    }
+  ],
+  "insightCards": [
+    {
+      "id": "highlight_courses",
+      "title": "课程学习记录较集中",
+      "description": "本月多次出现教学楼停留、学习通使用、课堂PPT和板书照片，课程学习是本月重要组成部分。",
+      "evidence": [
+        "教学楼附近总停留2160分钟",
+        "学习类App使用860分钟",
+        "课堂PPT场景13次，课堂板书8次"
+      ],
+      "type": "highlight"
+    },
+    {
+      "id": "highlight_project",
+      "title": "LifeTrace项目持续推进",
+      "description": "本月中后期项目相关记录增多，包含资料查询、文档整理、代码查看和汇报材料准备。",
+      "evidence": [
+        "项目整理估算时长2680分钟",
+        "文档处理App使用880分钟",
+        "项目文档场景11次，代码界面6次"
+      ],
+      "type": "highlight"
+    },
+    {
+      "id": "highlight_library",
+      "title": "图书馆是重要学习和项目地点",
+      "description": "图书馆附近停留2840分钟，主要对应自习、查资料和项目整理，有较明显的集中推进行为。",
+      "evidence": [
+        "图书馆附近总停留2840分钟",
+        "主要停留类型为自习/查资料/项目整理",
+        "资料查询和文档处理App使用时长较高"
+      ],
+      "type": "highlight"
+    },
+    {
+      "id": "pattern_day_night",
+      "title": "白天学习，晚上放松",
+      "description": "本月大致呈现白天偏向学习和项目推进，晚上回宿舍整理或放松的节奏。",
+      "evidence": [
+        "教学楼和图书馆主要对应课程学习、自习、项目整理",
+        "宿舍区附近晚间有文档整理和娱乐",
+        "娱乐类App多与晚间相关"
+      ],
+      "type": "pattern"
+    },
+    {
+      "id": "pattern_project_late",
+      "title": "项目任务中后期更集中",
+      "description": "本月中后期可能是LifeTrace项目进入文档完善、Demo数据整理和汇报准备阶段。",
+      "evidence": [
+        "项目文档和代码界面照片较多",
+        "WPS、VSCode、腾讯文档使用记录较多",
+        "OCR中出现多次LifeTrace等关键词"
+      ],
+      "type": "pattern"
+    }
+  ],
+  "memoryQuestions": [
+    "这个月你在课堂上印象最深的一节课是什么？",
+    "LifeTrace项目本月的推进中，你最满意哪部分成果？",
+    "有没有哪一天的学习或工作节奏让你觉得特别高效？",
+    "本月校园生活中，有没有一个让你放松的瞬间？"
+  ],
+  "frontendHints": {
+    "defaultView": "overview",
+    "accent": "blue",
+    "density": "comfortable"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "readGuide": {
+    "说明": "本 JSON 用于说明 LifeTrace 单日生活数据的读取格式。数据已经过清洗、分类、地点标签化和时间融合。AI 读取时先确认日期和基本信息，再读取 dailyContextText 快速理解当天整体内容，然后读取 memorySegments 查看具体生活片段，appUsage、locationStays、photoMoments 用于补充证据。",
+    "数据结构顺序": [
+      "dateKey",
+      "basicInfo",
+      "appUsage",
+      "locationStays",
+      "photoMoments",
+      "memorySegments",
+      "dailyContextText"
+    ],
+    "AI读取顺序": [
+      "dateKey",
+      "basicInfo",
+      "dailyContextText",
+      "memorySegments",
+      "appUsage",
+      "locationStays",
+      "photoMoments"
+    ],
+    "dateKey": {
+      "作用": "这一天数据的日期主键，用于按天查询、日历标记和数据归档。",
+      "字段含义": "日期，格式为 yyyy-MM-dd。"
+    },
+    "basicInfo": {
+      "作用": "说明这一天的基本情况。",
+      "字段": {
+        "weekday": "星期。",
+        "dayType": "这一天的大致类型，例如课程学习、项目整理、外出等。",
+        "dataSources": "这一天包含的数据来源，例如 App 使用、定位、照片、OCR。",
+        "dataCompleteness": "数据完整程度，high 表示数据较完整，medium 表示部分数据缺失，low 表示数据较少。"
+      }
+    },
+    "appUsage": {
+      "作用": "记录当天使用过的 App，用来辅助判断学习、社交、娱乐、文档处理等行为。",
+      "字段": {
+        "timeRange": "App 使用时间段。",
+        "appName": "App 名称。",
+        "appCategory": "App 类型，例如社交、学习、娱乐、文档处理、开发等。",
+        "durationMinutes": "使用时长，单位为分钟。",
+        "note": "对这条 App 使用记录的简单解释。"
+      }
+    },
+    "locationStays": {
+      "作用": "记录当天在不同地点的停留情况，用来辅助判断用户所处场景。",
+      "字段": {
+        "timeRange": "停留时间段。",
+        "locationLabel": "地点标签，例如宿舍区附近、教学楼附近、图书馆附近、食堂附近。",
+        "stayMinutes": "停留时长，单位为分钟。",
+        "stayType": "根据地点和时间推测出的停留类型，例如上课、吃饭、自习、休息。",
+        "confidence": "地点判断置信度，只供内部参考，不建议直接输出。"
+      }
+    },
+    "photoMoments": {
+      "作用": "记录当天照片、截图、OCR 和场景识别结果，用来补充视觉记忆。",
+      "字段": {
+        "time": "照片或截图产生的时间。",
+        "sceneLabel": "图片场景标签，例如课堂PPT、校园晚霞、文档页面、代码界面。",
+        "photoCount": "同一时刻或同一场景下的照片数量。",
+        "ocrText": "从图片中识别出的文字，没有文字时为空字符串。",
+        "note": "对照片内容的简单解释。"
+      }
+    },
+    "memorySegments": {
+      "作用": "核心字段。它是 appUsage、locationStays、photoMoments 按时间融合后的生活片段，用来表示当天具体发生了哪些事。",
+      "字段": {
+        "timeRange": "生活片段发生的时间段。",
+        "segmentType": "片段类型，例如 wake_up、class、meal、research、document_work、rest。",
+        "title": "生活片段标题。",
+        "relatedApps": "这个片段关联的 App。",
+        "relatedLocations": "这个片段关联的地点。",
+        "relatedPhotos": "这个片段关联的照片或截图场景。",
+        "evidence": "支持这个片段的证据，来自 App、定位、照片或 OCR。",
+        "description": "对这个生活片段的自然语言解释。"
+      }
+    },
+    "dailyContextText": {
+      "作用": "当天压缩后的连续文本总结，由前面的 appUsage、locationStays、photoMoments、memorySegments 汇总生成。",
+      "字段含义": "按时间顺序整理后的当天生活上下文，用于快速理解整天内容。"
+    },
+    "总体读取规则": [
+      "先根据 dateKey 和 basicInfo 确认日期与当天基本情况。",
+      "然后读取 dailyContextText，快速理解当天整体内容。",
+      "再读取 memorySegments，查看具体生活片段和证据。",
+      "appUsage、locationStays、photoMoments 只作为补充证据使用。",
+      "dailyContextText 在数据结构中放最后，因为它是前面数据汇总后的压缩总结。",
+      "所有判断必须能在 evidence 或原始板块中找到依据。",
+      "不确定的判断要使用“可能”“大概率”“看起来像是”。",
+      "不要输出 confidence、内部字段名、技术字段。",
+      "不要编造 JSON 中没有出现的事件。"
+    ]
+  }
+}

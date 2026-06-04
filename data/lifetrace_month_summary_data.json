@@ -1,0 +1,229 @@
+{
+  "monthKey": "2026-05",
+  "basicInfo": {
+    "monthRange": "2026-05-01 至 2026-05-31",
+    "summaryType": "monthly_stage_summary",
+    "availableDays": 28,
+    "missingDays": [
+      "2026-05-03",
+      "2026-05-11",
+      "2026-05-26"
+    ],
+    "dataCompleteness": "medium",
+    "dataSources": [
+      "daily_context_text",
+      "memory_segments",
+      "app_usage",
+      "location_stays",
+      "photo_moments"
+    ]
+  },
+  "monthlyStats": {
+    "mainLocationRanking": [
+      {
+        "locationLabel": "宿舍区附近",
+        "totalStayMinutes": 5260,
+        "mainStayType": "休息/文档整理/娱乐",
+        "description": "本月停留时间最长的地点，主要对应晚间休息、项目文档整理、社交沟通和娱乐放松。"
+      },
+      {
+        "locationLabel": "图书馆附近",
+        "totalStayMinutes": 2840,
+        "mainStayType": "自习/查资料/项目整理",
+        "description": "本月学习和项目推进的重要地点，较多出现在下午或白天较长时间段。"
+      },
+      {
+        "locationLabel": "教学楼附近",
+        "totalStayMinutes": 2160,
+        "mainStayType": "上课/课程学习",
+        "description": "主要对应课程学习、课堂记录和课间资料查询。"
+      },
+      {
+        "locationLabel": "食堂附近",
+        "totalStayMinutes": 1320,
+        "mainStayType": "用餐",
+        "description": "主要对应午餐、晚餐等日常生活片段。"
+      },
+      {
+        "locationLabel": "校园道路/湖边/操场附近",
+        "totalStayMinutes": 960,
+        "mainStayType": "通勤/散步/拍照",
+        "description": "主要对应校园内移动、傍晚散步和生活化拍照。"
+      }
+    ],
+    "mainActivityRanking": [
+      {
+        "activityType": "课程学习",
+        "estimatedMinutes": 3320,
+        "description": "本月多次出现教学楼停留、学习类 App 使用、课堂 PPT 和板书照片，说明课程学习占比较高。"
+      },
+      {
+        "activityType": "项目整理",
+        "estimatedMinutes": 2680,
+        "description": "本月多次使用浏览器、WPS、VSCode、腾讯文档等工具，说明 LifeTrace 项目资料整理和 Demo 准备较集中。"
+      },
+      {
+        "activityType": "休息娱乐",
+        "estimatedMinutes": 2260,
+        "description": "主要集中在晚间宿舍区附近，包含听音乐、看视频、微信聊天等放松活动。"
+      },
+      {
+        "activityType": "资料查询",
+        "estimatedMinutes": 1450,
+        "description": "主要通过浏览器完成，内容多与课程知识、项目技术路线、数据结构和汇报材料有关。"
+      },
+      {
+        "activityType": "日常生活",
+        "estimatedMinutes": 1380,
+        "description": "主要包括用餐、校园通勤、散步和拍摄校园生活照片。"
+      }
+    ],
+    "appCategoryRanking": [
+      {
+        "appCategory": "文档处理",
+        "totalMinutes": 880,
+        "description": "WPS 和腾讯文档使用较多，主要用于项目文档、汇报材料和共享文档整理。"
+      },
+      {
+        "appCategory": "学习",
+        "totalMinutes": 860,
+        "description": "学习通等学习类 App 使用较多，主要对应课程学习。"
+      },
+      {
+        "appCategory": "资料查询",
+        "totalMinutes": 760,
+        "description": "浏览器使用较多，主要用于课程资料和 LifeTrace 项目资料查询。"
+      },
+      {
+        "appCategory": "社交",
+        "totalMinutes": 650,
+        "description": "微信使用较多，主要用于查看消息、小组沟通和日常联系。"
+      },
+      {
+        "appCategory": "开发",
+        "totalMinutes": 420,
+        "description": "VSCode 使用记录集中在项目 Demo 数据结构和代码相关内容。"
+      },
+      {
+        "appCategory": "娱乐",
+        "totalMinutes": 590,
+        "description": "哔哩哔哩、网易云音乐等娱乐类 App 多出现在晚间休息阶段。"
+      }
+    ],
+    "photoSceneRanking": [
+      {
+        "sceneLabel": "课堂PPT",
+        "count": 13,
+        "description": "本月多次拍摄课堂 PPT，说明课程学习记录较多。"
+      },
+      {
+        "sceneLabel": "课堂板书",
+        "count": 8,
+        "description": "多与数据库、事务、并发控制等课程内容相关。"
+      },
+      {
+        "sceneLabel": "项目文档",
+        "count": 11,
+        "description": "截图内容多与 LifeTrace、技术路线、生活感知、记忆管理 Agent 等内容相关。"
+      },
+      {
+        "sceneLabel": "代码界面",
+        "count": 6,
+        "description": "主要与 Demo 数据结构、JSON、memorySegments 等开发内容相关。"
+      },
+      {
+        "sceneLabel": "校园风景",
+        "count": 9,
+        "description": "包括校园湖边、晚霞、操场等生活化场景。"
+      },
+      {
+        "sceneLabel": "餐食",
+        "count": 7,
+        "description": "主要对应午餐和晚餐记录。"
+      }
+    ]
+  },
+  "monthHighlights": [
+    {
+      "title": "课程学习记录较集中",
+      "description": "本月多次出现教学楼停留、学习通使用、课堂 PPT 和课堂板书照片，说明课程学习是本月的重要内容。",
+      "evidence": [
+        "教学楼附近总停留时间为 2160 分钟",
+        "学习类 App 总使用时长为 860 分钟",
+        "课堂PPT 场景出现 13 次",
+        "课堂板书场景出现 8 次"
+      ]
+    },
+    {
+      "title": "LifeTrace 项目持续推进",
+      "description": "本月中后期项目相关记录较多，包含资料查询、文档整理、代码查看和汇报材料准备。",
+      "evidence": [
+        "项目整理估算时长为 2680 分钟",
+        "文档处理类 App 总使用时长为 880 分钟",
+        "资料查询类 App 总使用时长为 760 分钟",
+        "项目文档场景出现 11 次",
+        "代码界面场景出现 6 次"
+      ]
+    },
+    {
+      "title": "图书馆是重要学习和项目地点",
+      "description": "图书馆附近停留时间较长，主要对应自习、查资料和项目整理，说明用户本月有较明显的集中学习和任务推进行为。",
+      "evidence": [
+        "图书馆附近总停留时间为 2840 分钟",
+        "图书馆附近主要停留类型为自习/查资料/项目整理",
+        "资料查询和文档处理类 App 使用时长较高"
+      ]
+    },
+    {
+      "title": "晚间主要回到宿舍整理和放松",
+      "description": "宿舍区是本月停留时间最长的地点，晚间活动主要包括文档整理、社交沟通、听音乐和看视频。",
+      "evidence": [
+        "宿舍区附近总停留时间为 5260 分钟",
+        "休息娱乐估算时长为 2260 分钟",
+        "社交类 App 总使用时长为 650 分钟",
+        "娱乐类 App 总使用时长为 590 分钟"
+      ]
+    },
+    {
+      "title": "本月也保留了一些校园生活片段",
+      "description": "除了课程和项目记录外，本月照片中还出现了校园晚霞、湖边、操场和餐食等生活化内容。",
+      "evidence": [
+        "校园风景场景出现 9 次",
+        "餐食场景出现 7 次",
+        "校园道路/湖边/操场附近总停留时间为 960 分钟"
+      ]
+    }
+  ],
+  "possiblePatterns": [
+    {
+      "patternName": "白天偏向学习和项目推进，晚上偏向宿舍整理与放松",
+      "evidence": [
+        "教学楼和图书馆主要对应课程学习、自习、资料查询和项目整理",
+        "宿舍区附近停留时间最长，主要对应晚间文档整理和休息娱乐",
+        "文档处理、资料查询、学习类 App 使用时长较高",
+        "娱乐类 App 多与晚间休息片段相关"
+      ],
+      "description": "本月生活节奏大致呈现出白天学习或推进项目，晚上回宿舍整理材料或放松的模式。"
+    },
+    {
+      "patternName": "项目任务在本月中后期更集中",
+      "evidence": [
+        "项目文档和代码界面照片场景出现次数较多",
+        "WPS、VSCode、腾讯文档和浏览器使用记录较多",
+        "OCR 内容中多次出现 LifeTrace、技术路线、数据采集、memorySegments 等项目相关词语"
+      ],
+      "description": "本月中后期可能是 LifeTrace 项目进入文档完善、Demo 数据整理和汇报准备阶段。"
+    },
+    {
+      "patternName": "学习内容与项目内容存在交替推进",
+      "evidence": [
+        "课程学习估算时长为 3320 分钟",
+        "项目整理估算时长为 2680 分钟",
+        "课堂PPT、课堂板书、项目文档和代码界面都在照片场景中出现",
+        "教学楼和图书馆都是本月高频地点"
+      ],
+      "description": "本月既有持续的课程学习，也有较多项目任务，两类活动可能在不同日期或同一天的不同时段交替进行。"
+    }
+  ],
+  "monthlyContextText": "2026 年 5 月的数据覆盖 28 天，整体数据完整度为 medium。本月整体以课程学习、图书馆自习、LifeTrace 项目整理和宿舍休息为主。地点上，宿舍区附近停留时间最长，主要对应晚间文档整理、社交沟通、娱乐和休息；图书馆附近是本月学习和项目推进的重要地点，较多用于自习、资料查询和项目文档整理；教学楼附近主要对应课程学习和课堂记录。活动上，课程学习和项目整理占比较高，资料查询、文档处理和开发相关记录也较明显，说明本月既有课程任务，也有 LifeTrace 项目推进。照片场景中，课堂 PPT、课堂板书、项目文档、代码界面、校园风景和餐食都比较典型，说明这个月既保留了学习与项目工作的记录，也包含一定校园生活片段。整体来看，本月大致呈现出白天学习或推进项目、晚上回宿舍整理材料或放松的节奏，中后期项目相关内容可能更加集中。"
+}

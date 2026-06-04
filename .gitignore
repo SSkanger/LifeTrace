@@ -1,0 +1,32 @@
+# IDE and local machine files
+.idea/
+.vscode/
+*.iml
+local.properties
+frontend/local.properties
+
+# Gradle and Android build outputs
+.gradle/
+build/
+frontend/.gradle/
+frontend/build/
+frontend/app/build/
+*.apk
+*.aab
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Runtime/generated local indexes
+outputs/chroma_lifetrace/
+frontend/app/src/main/assets/lifetrace/data/chroma_lifetrace/
+
+# Large recovered/archive files
+*.zip
+LifeTrace_recovered_from_browser.html
+
+# Environment secrets
+.env
+backend/.env

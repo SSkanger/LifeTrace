@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "lifetrace.search.v1",
+  "query": "我记得下午在图书馆整理 LifeTrace 项目",
+  "interpretedQuery": {
+    "searchText": "我记得下午在图书馆整理 LifeTrace 项目 我记得下午在图书馆整理 项目 LifeTrace LifeTrace 项目整理 资料 文档 WPS",
+    "intent": "find_memory",
+    "timeHints": [
+      "下午"
+    ],
+    "locationHints": [
+      "图书馆"
+    ],
+    "appHints": [],
+    "activityHints": [
+      "项目"
+    ],
+    "visualHints": [],
+    "keywords": [
+      "我记得下午在图书馆整理",
+      "项目",
+      "LifeTrace",
+      "项目整理",
+      "资料",
+      "文档",
+      "WPS",
+      "浏览器",
+      "图书馆附近",
+      "自习"
+    ]
+  },
+  "answer": {
+    "headline": "最可能是2026-05-20的记录",
+    "paragraph": "根据检索到的候选记忆，最接近“我记得下午在图书馆整理 LifeTrace 项目”的是“下午在图书馆整理项目资料”。它的时间、标题或证据与问题中的线索更接近，适合作为这次模糊搜索的入口。"
+  },
+  "results": [
+    {
+      "id": "daily_2026_05_20_seg_4",
+      "score": 1.0,
+      "confidence": "high",
+      "sourceType": "daily_segment",
+      "sourceKey": "2026-05-20",
+      "timeRange": "13:37-17:05",
+      "title": "下午在图书馆整理项目资料",
+      "snippet": "2026-05-20 13:37-17:05 下午在图书馆整理项目资料 下午用户在图书馆停留较长时间，查找 LifeTrace 项目资料并整理项目文档。",
+      "evidence": [
+        "13:37-17:05 在图书馆附近停留约 208 分钟",
+        "14:05-14:48 使用浏览器查找项目资料",
+        "14:22 截图 OCR 出现“LifeTrace 技术路线 数据采集”",
+        "15:12-16:05 使用 WPS 整理项目文档",
+        "15:47 截图 OCR 出现“生活感知 记忆管理 Agent”"
+      ],
+      "matchReason": "命中了“下午、图书馆、项目”等线索。",
+      "openTarget": {
+        "pageType": "daily",
+        "sourceKey": "2026-05-20",
+        "anchorId": "seg_4"
+      }
+    },
+    {
+      "id": "month_2026_05_summary",
+      "score": 0.8335,
+      "confidence": "high",
+      "sourceType": "month_summary",
+      "sourceKey": "2026-05",
+      "timeRange": "2026-05-01 至 2026-05-31",
+      "title": "2026-05 阶段总结",
+      "snippet": "2026-05 2026 年 5 月的数据覆盖 28 天，整体数据完整度中等。本月整体以课程学习、图书馆自习、LifeTrace 项目整理和宿舍休息为主。",
+      "evidence": [
+        "2026 年 5 月的数据覆盖 28 天，整体数据完整度中等。本月整体以课程学习、图书馆自习、LifeTrace 项目整理和宿舍休息为主。地点上，宿舍区附近停留时间最长，主要对应晚间文档整理、社交沟通、娱乐和休息；图书馆附近是本月学习和项目推进的重要地点，较多用于自习、资料查询和项目文档整理；"
+      ],
+      "matchReason": "命中了“图书馆、项目、项目”等线索。",
+      "openTarget": {
+        "pageType": "month",
+        "sourceKey": "2026-05",
+        "anchorId": "summary"
+      }
+    },
+    {
+      "id": "daily_2026_05_20_location_4",
+      "score": 0.7801,
+      "confidence": "high",
+      "sourceType": "location_stay",
+      "sourceKey": "2026-05-20",
+      "timeRange": "13:37-17:05",
+      "title": "图书馆附近 停留",
+      "snippet": "2026-05-20 13:37-17:05 图书馆附近 208 分钟 自习/查资料/项目整理",
+      "evidence": [
+        "13:37-17:05 在图书馆附近停留约 208 分钟"
+      ],
+      "matchReason": "命中了“图书馆、项目、项目”等线索。",
+      "openTarget": {
+        "pageType": "daily",
+        "sourceKey": "2026-05-20",
+        "anchorId": "location_stays"
+      }
+    },
+    {
+      "id": "month_2026_05_highlight_3",
+      "score": 0.7471,
+      "confidence": "high",
+      "sourceType": "month_highlight",
+      "sourceKey": "2026-05",
+      "timeRange": "2026-05-01 至 2026-05-31",
+      "title": "图书馆是重要学习和项目地点",
+      "snippet": "2026-05 图书馆是重要学习和项目地点 图书馆附近停留时间较长，主要对应自习、查资料和项目整理，说明用户本月有较明显的集中学习和任务推进行为。",
+      "evidence": [
+        "图书馆附近总停留时间为 2840 分钟",
+        "图书馆附近主要停留类型为自习/查资料/项目整理",
+        "资料查询和文档处理类 App 使用时长较高"
+      ],
+      "matchReason": "命中了“图书馆、项目、项目”等线索。",
+      "openTarget": {
+        "pageType": "month",
+        "sourceKey": "2026-05",
+        "anchorId": "highlight_3"
+      }
+    },
+    {
+      "id": "month_2026_05_mainactivityranking_2",
+      "score": 0.7235,
+      "confidence": "high",
+      "sourceType": "month_stat",
+      "sourceKey": "2026-05",
+      "timeRange": "2026-05-01 至 2026-05-31",
+      "title": "主要活动：项目整理",
+      "snippet": "2026-05 主要活动 项目整理 2680分钟 本月多次使用浏览器、WPS、VSCode、腾讯文档等工具，说明 LifeTrace 项目资料整理和 Demo 准备较集中。",
+      "evidence": [
+        "项目整理：2680分钟",
+        "本月多次使用浏览器、WPS、VSCode、腾讯文档等工具，说明 LifeTrace 项目资料整理和 Demo 准备较集中。"
+      ],
+      "matchReason": "命中了“项目、项目、LifeTrace”等线索。",
+      "openTarget": {
+        "pageType": "month",
+        "sourceKey": "2026-05",
+        "anchorId": "ranking_sections"
+      }
+    }
+  ],
+  "relatedQuestions": [
+    "这条记忆对应的当天还有哪些片段？",
+    "这条线索在阶段总结里是否也出现过？",
+    "能不能只看包含照片或截图的记录？"
+  ],
+  "frontendHints": {
+    "defaultView": "search_results",
+    "accent": "violet",
+    "density": "comfortable"
+  }
+}

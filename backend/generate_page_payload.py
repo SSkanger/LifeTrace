@@ -1,0 +1,58 @@
+"""Generate LifeTrace frontend page JSON from cleaned demo data."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+from llm_client import DEFAULT_MAX_TOKENS
+from service import build_prompt_messages, default_output_path, generate_page_payload, read_json, write_json
+
+
+def main() -> None:
+    args = parse_args()
+
+    data = read_json(Path(args.data)) if args.data else None
+    read_guide = read_json(Path(args.guide)) if args.guide else None
+
+    if args.print_prompt:
+        messages = build_prompt_messages(args.mode, data, read_guide)
+        print(json.dumps(messages, ensure_ascii=False, indent=2))
+        return
+
+    payload = generate_page_payload(
+        mode=args.mode,
+        data=data,
+        read_guide=read_guide,
+        mock=args.mock,
+        temperature=args.temperature,
+        max_tokens=args.max_tokens,
+        timeout=args.timeout,
+    )
+    out_path = Path(args.out) if args.out else default_output_path(args.mode)
+    write_json(out_path, payload)
+    print(f"Wrote {out_path}")
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate a LifeTrace frontend page payload.")
+    parser.add_argument("--mode", choices=["daily", "week", "month"], required=True, help="Input data type.")
+    parser.add_argument("--data", help="Path to cleaned LifeTrace data JSON.")
+    parser.add_argument("--guide", help="Path to the read guide JSON.")
+    parser.add_argument("--out", help="Output path for the frontend page payload JSON.")
+    parser.add_argument("--mock", action="store_true", help="Generate deterministic mock output without calling an LLM.")
+    parser.add_argument("--print-prompt", action="store_true", help="Print the final chat messages and exit.")
+    parser.add_argument("--temperature", type=float, default=0.2, help="LLM temperature for non-mock generation.")
+    parser.add_argument(
+        "--max-tokens",
+        type=int,
+        default=DEFAULT_MAX_TOKENS,
+        help="Max output tokens for non-mock generation.",
+    )
+    parser.add_argument("--timeout", type=int, default=90, help="LLM request timeout in seconds.")
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    main()
