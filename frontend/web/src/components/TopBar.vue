@@ -1,8 +1,9 @@
 <template>
   <header class="topbar">
     <button class="avatar-btn" id="profileBtn" aria-label="账户">
-      <span>新</span>
+      <span>蒲</span>
     </button>
+    <span class="home-user-name">蒲林</span>
     <div class="brand">
       <div class="mark"></div>
       <div class="brand-name">

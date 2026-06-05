@@ -17,9 +17,9 @@
     <div class="account-scrim" id="accountScrim"></div>
     <aside class="account-panel" id="accountPanel" aria-label="账户面板">
       <div class="account-head">
-        <div class="account-avatar">新</div>
+        <div class="account-avatar">蒲</div>
         <div>
-          <h2>刘新康</h2>
+          <h2>蒲林</h2>
           <span>LifeTrace 账号 · 本地优先</span>
         </div>
       </div>

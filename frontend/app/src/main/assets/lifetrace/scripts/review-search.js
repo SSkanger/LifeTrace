@@ -222,14 +222,7 @@ const events = [
           const max = Number(control.dataset.max || 59);
           control.innerHTML = Array.from({ length: max + 1 }, (_, value) => `<button type="button" data-value="${padTime(value)}">${padTime(value)}</button>`).join('');
         }
-        control.onscroll = () => {
-          clearTimeout(control._snapTimer);
-          control._snapTimer = setTimeout(() => {
-            const value = Math.round(control.scrollTop / 32);
-            setWheelValue(control, value);
-            syncTimeFromPicker();
-          }, 80);
-        };
+        control.onscroll = null;
         control.onclick = event => {
           const option = event.target.closest('button');
           if (!option) return;

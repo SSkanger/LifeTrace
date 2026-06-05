@@ -47,6 +47,8 @@ const pages = [...document.querySelectorAll('.page')];
       const isMainPage = ['homePage', 'calendarPage', 'searchPage', 'summaryPage'].includes(id);
       if (topbar) {
         topbar.classList.toggle('subpage-mode', !isMainPage);
+        topbar.classList.toggle('main-mode', isMainPage);
+        topbar.classList.toggle('home-mode', id === 'homePage');
         topbar.classList.remove('permission-mode');
       }
       if (backBtn) {
