@@ -10,13 +10,17 @@ const events = [
       const title = escapeHtml(photo.title || '照片线索');
       const meta = escapeHtml(photo.meta || '照片线索');
       const src = photo.src || photo.url || photo.path || '';
+      if (!src) return '';
       const image = src ? `<img src="${escapeHtml(src)}" alt="${title}" loading="lazy">` : '';
       return `<div class="event-photo ${style}${src ? ' has-image' : ''}">${image}<div class="photo-caption"><b>${title}</b><span>${meta}</span></div></div>`;
     }
 
     function ensureTimelineDetailPanel() {
       let panel = document.getElementById('timelineDetailPanel');
-      if (panel) return panel;
+      if (panel) {
+        ensureDetailEditor(panel);
+        return panel;
+      }
       panel = document.createElement('div');
       panel.className = 'timeline-detail-panel';
       panel.id = 'timelineDetailPanel';
@@ -28,38 +32,189 @@ const events = [
             <span id="timelineDetailMeta">\u65f6\u95f4\u7ebf\u7247\u6bb5</span>
           </div>
         </div>
-        <div id="timelineDetailBody"></div>`;
+        <div id="timelineDetailBody"></div>
+        <div class="detail-edit-panel" id="detailEditPanel">
+          <div class="detail-edit-head">
+            <button id="detailEditCancel">\u53d6\u6d88</button>
+            <strong>\u7f16\u8f91\u7247\u6bb5</strong>
+            <button id="detailEditDone">\u5b8c\u6210</button>
+          </div>
+          <label><span>\u65f6\u95f4</span><input id="detailEditTime" autocomplete="off"></label>
+          <label><span>\u5730\u70b9</span><input id="detailEditLocation" autocomplete="off"></label>
+          <label><span>\u4e3b\u9898</span><input id="detailEditTitle" autocomplete="off"></label>
+          <label class="detail-edit-text"><span>\u5185\u5bb9</span><textarea id="detailEditText"></textarea></label>
+        </div>`;
       document.querySelector('.phone').appendChild(panel);
       document.getElementById('timelineDetailBack').onclick = closeTimelineDetail;
+      document.getElementById('detailEditCancel').onclick = closeDetailEditor;
+      document.getElementById('detailEditDone').onclick = saveDetailEditor;
+      bindTimelineDetailPanel(panel);
       return panel;
     }
 
-    function closeTimelineDetail() {
+    function bindTimelineDetailPanel(panel) {
+      if (!panel || panel.dataset.heroEditBound === 'true') return;
+      panel.dataset.heroEditBound = 'true';
+      panel.addEventListener('click', event => {
+        if (isDetailHeroEvent(event)) {
+          openDetailEditor();
+        }
+      });
+      panel.addEventListener('touchend', event => {
+        if (isDetailHeroEvent(event)) {
+          event.preventDefault();
+          openDetailEditor();
+        }
+      });
+    }
+
+    function isDetailHeroEvent(event) {
+      if (event.target.closest && event.target.closest('#detailEditPanel')) return false;
+      const hero = document.getElementById('detailHeroCard');
+      if (!hero) return false;
+      if (event.target.closest && event.target.closest('#detailHeroCard')) return true;
+      const point = event.changedTouches ? event.changedTouches[0] : event;
+      if (!point || point.clientX == null || point.clientY == null) return false;
+      const rect = hero.getBoundingClientRect();
+      return point.clientX >= rect.left && point.clientX <= rect.right && point.clientY >= rect.top && point.clientY <= rect.bottom;
+    }
+
+    function ensureDetailEditor(panel = document.getElementById('timelineDetailPanel')) {
+      if (!panel) return null;
+      let editor = document.getElementById('detailEditPanel');
+      if (!editor) {
+        editor = document.createElement('div');
+        editor.className = 'detail-edit-panel';
+        editor.id = 'detailEditPanel';
+        editor.innerHTML = `
+          <div class="detail-edit-head">
+            <button id="detailEditCancel">\u53d6\u6d88</button>
+            <strong>\u7f16\u8f91\u7247\u6bb5</strong>
+            <button id="detailEditDone">\u5b8c\u6210</button>
+          </div>
+          <label><span>\u65f6\u95f4</span><input id="detailEditTime" autocomplete="off"></label>
+          <label><span>\u5730\u70b9</span><input id="detailEditLocation" autocomplete="off"></label>
+          <label><span>\u4e3b\u9898</span><input id="detailEditTitle" autocomplete="off"></label>
+          <label class="detail-edit-text"><span>\u5185\u5bb9</span><textarea id="detailEditText"></textarea></label>`;
+        panel.appendChild(editor);
+      }
+      document.getElementById('detailEditCancel').onclick = closeDetailEditor;
+      document.getElementById('detailEditDone').onclick = saveDetailEditor;
+      bindTimelineDetailPanel(panel);
+      return editor;
+    }
+
+    function closeTimelineDetail(immediate = false) {
       const panel = document.getElementById('timelineDetailPanel');
       if (!panel) return;
+      closeDetailEditor();
+      if (immediate) {
+        panel.classList.remove('active', 'closing');
+        return;
+      }
       panel.classList.add('closing');
       setTimeout(() => panel.classList.remove('active', 'closing'), 280);
     }
+
+    window.closeTimelineDetail = closeTimelineDetail;
 
     function normalizeList(value) {
       if (!value) return [];
       return Array.isArray(value) ? value : [value];
     }
 
-    function renderDetailEvidence(ev) {
-      const evidence = [
-        ...normalizeList(ev.evidence),
-        ...normalizeList(ev.sourceItems).map(item => `${item.label || ''}${item.value ? ': ' + item.value : ''}`),
-        ...normalizeList(ev.locations).map(item => item.name || item.label || item),
-        ...normalizeList(ev.apps).map(item => item.name ? `${item.name}${item.duration ? ' / ' + item.duration : ''}` : item)
-      ].filter(Boolean);
-      if (!evidence.length) {
-        evidence.push(
-          `\u65f6\u95f4\u6807\u8bb0: ${ev.time || ev.timeRange || '-'}`,
-          `\u7247\u6bb5\u7c7b\u578b: ${ev.type || '\u8bb0\u5fc6\u7247\u6bb5'}`
-        );
-      }
-      return evidence.map(item => `<div class="detail-evidence">${escapeHtml(item)}</div>`).join('');
+    function sourceItemValue(ev, pattern) {
+      const item = normalizeList(ev.sourceItems).find(source => pattern.test(`${source.label || ''}${source.type || ''}`));
+      return item ? (item.value || item.name || item.label || '') : '';
+    }
+
+    function firstSourceText(value) {
+      const item = normalizeList(value)[0];
+      if (!item) return '';
+      return typeof item === 'string' ? item : (item.name || item.label || item.value || '');
+    }
+
+    function detailSources(ev, time) {
+      const photo = ev.photo || (ev.photos && ev.photos[0]);
+      const photoText = photo && (photo.src || photo.url || photo.path)
+        ? (photo.meta || photo.title || '\u5df2\u5339\u914d\u7167\u7247')
+        : '';
+      return {
+        time: time || '-',
+        location: ev.location || firstSourceText(ev.locations) || sourceItemValue(ev, /\u4f4d\u7f6e|\u5730\u70b9|location/i) || '\u672a\u6807\u8bb0\u5730\u70b9',
+        app: firstSourceText(ev.apps) || sourceItemValue(ev, /App|\u5e94\u7528/i) || '',
+        photo: photoText
+      };
+    }
+
+    function renderDetailEvidence(sources) {
+      const rows = [
+        ['\u65f6\u95f4', sources.time, 'detailEvidenceTime', 'time'],
+        ['\u5730\u70b9', sources.location, 'detailEvidenceLocation', 'location'],
+        ['\u7167\u7247', sources.photo, '', 'photo']
+      ].filter(row => row[1]);
+      return rows.map(([label, value, id, field]) => `<div class="detail-evidence"><b>${label}</b><span class="detail-editable" contenteditable="true" data-edit-field="${field}"${id ? ` id="${id}"` : ''}>${escapeHtml(value)}</span></div>`).join('');
+    }
+
+    function bindDetailEditing(panel) {
+      const titleNode = document.getElementById('timelineDetailTitle');
+      const metaNode = document.getElementById('timelineDetailMeta');
+      const updateMeta = () => {
+        const time = panel.querySelector('[data-edit-field="time"]')?.textContent.trim();
+        const location = document.getElementById('detailEvidenceLocation')?.textContent.trim();
+        metaNode.textContent = [time, location].filter(Boolean).join(' / ') || '\u6bcf\u65e5\u6982\u89c8\u65f6\u95f4\u7ebf';
+      };
+      panel.querySelectorAll('[data-edit-field]').forEach(node => {
+        node.addEventListener('input', () => {
+          const value = node.textContent.trim();
+          if (node.dataset.editField === 'time') {
+            panel.querySelectorAll('[data-edit-field="time"]').forEach(peer => {
+              if (peer !== node) peer.textContent = value || '-';
+            });
+            const heroTime = document.getElementById('detailHeroTime');
+            if (heroTime) heroTime.textContent = value || '-';
+            updateMeta();
+          }
+          if (node.dataset.editField === 'location') {
+            updateMeta();
+          }
+          if (node.dataset.editField === 'title') {
+            titleNode.textContent = value || '\u7247\u6bb5\u8be6\u60c5';
+          }
+        });
+      });
+    }
+
+    function openDetailEditor() {
+      const editor = ensureDetailEditor();
+      if (!editor) return;
+      document.getElementById('detailEditTime').value = document.getElementById('detailHeroTime')?.textContent.trim() || '';
+      document.getElementById('detailEditLocation').value = document.getElementById('detailEvidenceLocation')?.textContent.trim() || '';
+      document.getElementById('detailEditTitle').value = document.getElementById('detailHeroTitle')?.textContent.trim() || '';
+      document.getElementById('detailEditText').value = document.getElementById('detailHeroText')?.textContent.trim() || '';
+      editor.classList.add('active');
+      setTimeout(() => document.getElementById('detailEditTime').focus(), 0);
+    }
+
+    window.openTimelineDetailEditor = openDetailEditor;
+
+    function closeDetailEditor() {
+      document.getElementById('detailEditPanel')?.classList.remove('active');
+    }
+
+    function saveDetailEditor() {
+      const time = document.getElementById('detailEditTime').value.trim() || '-';
+      const location = document.getElementById('detailEditLocation').value.trim() || '\u672a\u6807\u8bb0\u5730\u70b9';
+      const title = document.getElementById('detailEditTitle').value.trim() || '\u7247\u6bb5\u8be6\u60c5';
+      const text = document.getElementById('detailEditText').value.trim();
+      document.getElementById('detailHeroTime').textContent = time;
+      document.getElementById('detailHeroTitle').textContent = title;
+      document.getElementById('detailHeroText').textContent = text;
+      document.getElementById('timelineDetailTitle').textContent = title;
+      document.getElementById('timelineDetailMeta').textContent = [time, location].filter(Boolean).join(' / ');
+      document.getElementById('detailEvidenceTime').textContent = time;
+      document.getElementById('detailEvidenceLocation').textContent = location;
+      closeDetailEditor();
     }
 
     function openTimelineDetail(ev) {
@@ -68,20 +223,34 @@ const events = [
       const title = ev.title || '\u7247\u6bb5\u8be6\u60c5';
       const text = ev.detail || ev.detailText || ev.text || ev.description || '';
       const tags = ev.tags || [];
+      const sources = detailSources(ev, time);
       document.getElementById('timelineDetailTitle').textContent = title;
-      document.getElementById('timelineDetailMeta').textContent = time ? `${time} · \u6bcf\u65e5\u6982\u89c8\u65f6\u95f4\u7ebf` : '\u6bcf\u65e5\u6982\u89c8\u65f6\u95f4\u7ebf';
+      document.getElementById('timelineDetailMeta').textContent = [sources.time, sources.location].filter(Boolean).join(' / ');
       document.getElementById('timelineDetailBody').innerHTML = `
-        <div class="detail-hero">
-          <div class="event-time">${escapeHtml(time)}</div>
-          <h3>${escapeHtml(title)}</h3>
-          <p>${escapeHtml(text)}</p>
+        <div class="detail-hero" id="detailHeroCard" role="button" tabindex="0" onclick="window.openTimelineDetailEditor && window.openTimelineDetailEditor()">
+          <div class="event-time" id="detailHeroTime">${escapeHtml(sources.time)}</div>
+          <h3 id="detailHeroTitle">${escapeHtml(title)}</h3>
+          <p id="detailHeroText">${escapeHtml(text)}</p>
           <div class="tags">${tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join('')}</div>
         </div>
         ${renderEventPhoto(ev.photo || (ev.photos && ev.photos[0]))}
-        <div class="detail-section-title"><h3>\u7ebf\u7d22\u6765\u6e90</h3><span>\u4f4d\u7f6e / App / \u7167\u7247</span></div>
-        <div class="detail-evidence-list">${renderDetailEvidence(ev)}</div>
+        <div class="detail-section-title"><h3>\u7ebf\u7d22\u6765\u6e90</h3><span>\u65f6\u95f4 / \u5730\u70b9 / \u7167\u7247</span></div>
+        <div class="detail-evidence-list">${renderDetailEvidence(sources)}</div>
         <div class="detail-section-title"><h3>\u8bb0\u5fc6\u89e3\u8bfb</h3><span>LifeTrace</span></div>
         <div class="card"><p>${escapeHtml(ev.insight || ev.summary || '\u8fd9\u4e2a\u65f6\u95f4\u6bb5\u7531\u65f6\u95f4\u3001\u4f4d\u7f6e\u3001App \u4f7f\u7528\u548c\u7167\u7247\u7ebf\u7d22\u5171\u540c\u7ec4\u6210\uff0c\u9002\u5408\u4f5c\u4e3a\u5f53\u5929\u56de\u987e\u4e2d\u7684\u72ec\u7acb\u7247\u6bb5\u7ee7\u7eed\u8ffd\u6eaf\u3002')}</p></div>`;
+      bindDetailEditing(panel);
+      const heroCard = document.getElementById('detailHeroCard');
+      if (heroCard) {
+        heroCard.onclick = openDetailEditor;
+        heroCard.ontouchend = event => {
+          event.preventDefault();
+          openDetailEditor();
+        };
+        heroCard.onkeydown = event => {
+          if (event.key === 'Enter' || event.key === ' ') openDetailEditor();
+        };
+      }
+      closeDetailEditor();
       panel.classList.remove('closing');
       panel.classList.add('active');
       panel.scrollTop = 0;

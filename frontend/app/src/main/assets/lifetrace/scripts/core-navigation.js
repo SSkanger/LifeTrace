@@ -44,11 +44,13 @@ const pages = [...document.querySelectorAll('.page')];
       navs.forEach(n => n.classList.toggle('active', n.dataset.go === activeNav));
       const backBtn = document.getElementById('backBtn');
       const topbar = document.querySelector('.topbar');
+      const isMainPage = ['homePage', 'calendarPage', 'searchPage', 'summaryPage'].includes(id);
       if (topbar) {
-        topbar.classList.toggle('permission-mode', id === 'permissionPage');
+        topbar.classList.toggle('subpage-mode', !isMainPage);
+        topbar.classList.remove('permission-mode');
       }
       if (backBtn) {
-        backBtn.classList.toggle('is-hidden', ['homePage', 'calendarPage', 'searchPage', 'summaryPage'].includes(id));
+        backBtn.classList.toggle('is-hidden', isMainPage);
       }
       playNavMotion(motionTarget || navs.find(n => n.dataset.go === activeNav));
       document.querySelector('main').scrollTop = 0;
@@ -72,6 +74,9 @@ const pages = [...document.querySelectorAll('.page')];
     document.addEventListener('click', e => {
       const target = e.target.closest('[data-go]');
       if (target) {
+        if (target.classList.contains('nav-btn') && window.closeTimelineDetail) {
+          window.closeTimelineDetail(true);
+        }
         if (target.dataset.go === 'reviewPage') {
           const activePage = pages.find(p => p.classList.contains('active'));
           setReviewBackContext((activePage && activePage.id) || 'calendarPage');

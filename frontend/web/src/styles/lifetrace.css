@@ -160,6 +160,9 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .mark {
@@ -223,22 +226,23 @@
       pointer-events: none;
     }
 
-    .topbar.permission-mode {
+    .topbar.subpage-mode {
       justify-content: center;
     }
 
-    .topbar.permission-mode .avatar-btn {
+    .topbar.subpage-mode .avatar-btn {
       display: none;
     }
 
-    .topbar.permission-mode .back-btn {
+    .topbar.subpage-mode .back-btn {
       position: absolute;
       left: 22px;
+      right: auto;
       opacity: 1;
       pointer-events: auto;
     }
 
-    .topbar.permission-mode .brand {
+    .topbar.subpage-mode .brand {
       margin: 0;
     }
 
@@ -1000,10 +1004,10 @@
       left: 50%;
       top: 16px;
       width: 390px;
-      height: 844px;
+      height: 752px;
       z-index: 80;
       padding: 62px 22px 28px;
-      border-radius: 46px;
+      border-radius: 46px 46px 28px 28px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       border: 1px solid rgba(255, 255, 255, .12);
@@ -1042,6 +1046,7 @@
       border-radius: 999px;
       background: rgba(0, 0, 0, .62);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+      pointer-events: none;
     }
 
     .timeline-detail-panel:after {
@@ -1090,12 +1095,17 @@
     }
 
     .detail-hero {
+      position: relative;
+      z-index: 1;
       padding: 16px;
       border-radius: 20px;
       background: linear-gradient(140deg, rgba(246, 168, 75, .18), rgba(12, 22, 38, .86));
       border: 1px solid rgba(246, 168, 75, .22);
       box-shadow: var(--shadow);
       margin-bottom: 14px;
+      cursor: text;
+      pointer-events: auto;
+      touch-action: manipulation;
     }
 
     .detail-hero h3 {
@@ -1108,6 +1118,16 @@
       color: var(--muted);
       line-height: 1.72;
       font-size: 14px;
+    }
+
+    .detail-editable {
+      border-radius: 10px;
+      outline: 0;
+    }
+
+    .detail-editable:focus {
+      background: rgba(255, 255, 255, .07);
+      box-shadow: 0 0 0 1px rgba(246, 168, 75, .28);
     }
 
     .detail-section-title {
@@ -1133,6 +1153,10 @@
     }
 
     .detail-evidence {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
       padding: 11px 12px;
       border-radius: 14px;
       background: rgba(255, 255, 255, .055);
@@ -1140,6 +1164,87 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.58;
+    }
+
+    .detail-evidence b {
+      color: var(--text);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .detail-evidence span {
+      text-align: right;
+    }
+
+    .detail-edit-panel {
+      position: absolute;
+      inset: 0;
+      z-index: 120;
+      padding: 62px 22px 28px;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+      background: #f7f7f8;
+      color: #111827;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .detail-edit-panel.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .detail-edit-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 42px;
+      margin-bottom: 10px;
+    }
+
+    .detail-edit-head strong {
+      font-size: 20px;
+    }
+
+    .detail-edit-head button {
+      background: transparent;
+      color: #1677ff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .detail-edit-panel label {
+      display: grid;
+      gap: 8px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(17, 24, 39, .08);
+    }
+
+    .detail-edit-panel label span {
+      color: #6b7280;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .detail-edit-panel input,
+    .detail-edit-panel textarea {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #111827;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .detail-edit-panel textarea {
+      min-height: 150px;
+      resize: none;
+      font-family: inherit;
     }
 
     .tags {
@@ -2222,10 +2327,11 @@
         box-shadow: none;
       }
 
-      .summary-panel {
+      .summary-panel,
+      .timeline-detail-panel {
         top: 0;
         width: 100vw;
-        height: calc(100vh - 82px);
+        height: calc(100vh - 76px);
         border-radius: 0;
       }
 
