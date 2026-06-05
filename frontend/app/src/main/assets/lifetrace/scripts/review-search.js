@@ -39,7 +39,7 @@ const events = [
             <strong>\u7f16\u8f91\u7247\u6bb5</strong>
             <button id="detailEditDone">\u5b8c\u6210</button>
           </div>
-          <label><span>\u65f6\u95f4</span><input id="detailEditTime" autocomplete="off"></label>
+          <label class="detail-time-field" id="detailTimeField"><span>\u65f6\u95f4</span><input id="detailEditTime" autocomplete="off" inputmode="none" readonly><div class="time-wheel" id="detailTimeWheel"><div class="time-picker-summary"><strong id="detailActiveTimeText">08:10</strong><button type="button" id="detailTimeNow">\u73b0\u5728</button></div><div class="time-mode"><button type="button" data-time-part="start">\u5f00\u59cb\u65f6\u95f4</button><button type="button" data-time-part="end">\u7ed3\u675f\u65f6\u95f4</button></div><div class="time-wheel-head"><span>\u65f6</span><span>\u5206</span></div><div class="time-wheel-columns"><div class="time-scroll" id="detailWheelHour" data-max="23"></div><div class="time-scroll" id="detailWheelMinute" data-max="59"></div></div></div><em class="detail-edit-error" id="detailEditTimeError"></em></label>
           <label><span>\u5730\u70b9</span><input id="detailEditLocation" autocomplete="off"></label>
           <label><span>\u4e3b\u9898</span><input id="detailEditTitle" autocomplete="off"></label>
           <label class="detail-edit-text"><span>\u5185\u5bb9</span><textarea id="detailEditText"></textarea></label>
@@ -92,7 +92,7 @@ const events = [
             <strong>\u7f16\u8f91\u7247\u6bb5</strong>
             <button id="detailEditDone">\u5b8c\u6210</button>
           </div>
-          <label><span>\u65f6\u95f4</span><input id="detailEditTime" autocomplete="off"></label>
+          <label class="detail-time-field" id="detailTimeField"><span>\u65f6\u95f4</span><input id="detailEditTime" autocomplete="off" inputmode="none" readonly><div class="time-wheel" id="detailTimeWheel"><div class="time-picker-summary"><strong id="detailActiveTimeText">08:10</strong><button type="button" id="detailTimeNow">\u73b0\u5728</button></div><div class="time-mode"><button type="button" data-time-part="start">\u5f00\u59cb\u65f6\u95f4</button><button type="button" data-time-part="end">\u7ed3\u675f\u65f6\u95f4</button></div><div class="time-wheel-head"><span>\u65f6</span><span>\u5206</span></div><div class="time-wheel-columns"><div class="time-scroll" id="detailWheelHour" data-max="23"></div><div class="time-scroll" id="detailWheelMinute" data-max="59"></div></div></div><em class="detail-edit-error" id="detailEditTimeError"></em></label>
           <label><span>\u5730\u70b9</span><input id="detailEditLocation" autocomplete="off"></label>
           <label><span>\u4e3b\u9898</span><input id="detailEditTitle" autocomplete="off"></label>
           <label class="detail-edit-text"><span>\u5185\u5bb9</span><textarea id="detailEditText"></textarea></label>`;
@@ -100,6 +100,8 @@ const events = [
       }
       document.getElementById('detailEditCancel').onclick = closeDetailEditor;
       document.getElementById('detailEditDone').onclick = saveDetailEditor;
+      document.getElementById('detailEditTime').oninput = () => setTimeInputError('');
+      initTimePicker();
       bindTimelineDetailPanel(panel);
       return editor;
     }
@@ -189,21 +191,192 @@ const events = [
       const editor = ensureDetailEditor();
       if (!editor) return;
       document.getElementById('detailEditTime').value = document.getElementById('detailHeroTime')?.textContent.trim() || '';
+      syncTimePickerFromInput();
       document.getElementById('detailEditLocation').value = document.getElementById('detailEvidenceLocation')?.textContent.trim() || '';
       document.getElementById('detailEditTitle').value = document.getElementById('detailHeroTitle')?.textContent.trim() || '';
       document.getElementById('detailEditText').value = document.getElementById('detailHeroText')?.textContent.trim() || '';
       editor.classList.add('active');
-      setTimeout(() => document.getElementById('detailEditTime').focus(), 0);
+      document.getElementById('detailTimeField')?.classList.remove('picking');
+      setTimeInputError('');
     }
 
     window.openTimelineDetailEditor = openDetailEditor;
 
     function closeDetailEditor() {
       document.getElementById('detailEditPanel')?.classList.remove('active');
+      document.getElementById('detailTimeField')?.classList.remove('picking');
+    }
+
+    function padTime(value) {
+      return String(value).padStart(2, '0');
+    }
+
+    function initTimePicker() {
+      const timeInput = document.getElementById('detailEditTime');
+      const field = document.getElementById('detailTimeField');
+      const wheel = document.getElementById('detailTimeWheel');
+      const controls = ['detailWheelHour', 'detailWheelMinute'].map(id => document.getElementById(id));
+      if (!timeInput || !field || !wheel || controls.some(item => !item)) return;
+      controls.forEach(control => {
+        if (!control.children.length) {
+          const max = Number(control.dataset.max || 59);
+          control.innerHTML = Array.from({ length: max + 1 }, (_, value) => `<button type="button" data-value="${padTime(value)}">${padTime(value)}</button>`).join('');
+        }
+        control.onscroll = () => {
+          clearTimeout(control._snapTimer);
+          control._snapTimer = setTimeout(() => {
+            const value = Math.round(control.scrollTop / 32);
+            setWheelValue(control, value);
+            syncTimeFromPicker();
+          }, 80);
+        };
+        control.onclick = event => {
+          const option = event.target.closest('button');
+          if (!option) return;
+          setWheelValue(control, Number(option.dataset.value));
+          syncTimeFromPicker();
+        };
+      });
+      wheel.querySelectorAll('[data-time-part]').forEach(button => {
+        button.onclick = () => setActiveTimePart(button.dataset.timePart);
+      });
+      document.getElementById('detailTimeNow').onclick = event => {
+        event.stopPropagation();
+        const now = new Date();
+        setWheelValue(document.getElementById('detailWheelHour'), now.getHours());
+        setWheelValue(document.getElementById('detailWheelMinute'), now.getMinutes());
+        syncTimeFromPicker();
+      };
+      wheel.onclick = event => event.stopPropagation();
+      timeInput.onclick = event => {
+        event.stopPropagation();
+        field.classList.add('picking');
+      };
+      field.querySelector('span').onclick = event => {
+        event.stopPropagation();
+        field.classList.add('picking');
+      };
+      ['detailEditLocation', 'detailEditTitle', 'detailEditText'].forEach(id => {
+        const node = document.getElementById(id);
+        if (node) node.onfocus = () => field.classList.remove('picking');
+      });
+    }
+
+    function setWheelValue(control, value) {
+      const max = Number(control.dataset.max || 59);
+      const safeValue = Math.max(0, Math.min(max, Number(value) || 0));
+      control.dataset.value = padTime(safeValue);
+      control.scrollTop = safeValue * 32;
+      control.querySelectorAll('button').forEach(button => {
+        button.classList.toggle('active', button.dataset.value === control.dataset.value);
+      });
+    }
+
+    function parseTimeValue(value) {
+      const time = normalizeTimeInput(value);
+      const [start = '08:10', end = start] = time.split('-');
+      const startMatch = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(start);
+      const endMatch = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(end);
+      const safeStart = startMatch || /^([01]\d|2[0-3]):([0-5]\d)$/.exec('08:10');
+      const safeEnd = endMatch || safeStart;
+      return {
+        startHour: safeStart[1],
+        startMinute: safeStart[2],
+        endHour: safeEnd[1],
+        endMinute: safeEnd[2]
+      };
+    }
+
+    function syncTimePickerFromInput() {
+      const parts = parseTimeValue(document.getElementById('detailEditTime')?.value || '');
+      const wheel = document.getElementById('detailTimeWheel');
+      wheel.dataset.startHour = parts.startHour;
+      wheel.dataset.startMinute = parts.startMinute;
+      wheel.dataset.endHour = parts.endHour;
+      wheel.dataset.endMinute = parts.endMinute;
+      setActiveTimePart(wheel.dataset.activePart || 'start');
+      updateTimeInputFromState();
+    }
+
+    function setActiveTimePart(part) {
+      const wheel = document.getElementById('detailTimeWheel');
+      const activePart = part === 'end' ? 'end' : 'start';
+      wheel.dataset.activePart = activePart;
+      wheel.querySelectorAll('[data-time-part]').forEach(button => {
+        button.classList.toggle('active', button.dataset.timePart === activePart);
+      });
+      setWheelValue(document.getElementById('detailWheelHour'), Number(wheel.dataset[`${activePart}Hour`] || 8));
+      setWheelValue(document.getElementById('detailWheelMinute'), Number(wheel.dataset[`${activePart}Minute`] || 10));
+      updateActiveTimeText();
+    }
+
+    function syncTimeFromPicker() {
+      const wheel = document.getElementById('detailTimeWheel');
+      const activePart = wheel.dataset.activePart === 'end' ? 'end' : 'start';
+      wheel.dataset[`${activePart}Hour`] = document.getElementById('detailWheelHour').dataset.value || '08';
+      wheel.dataset[`${activePart}Minute`] = document.getElementById('detailWheelMinute').dataset.value || '10';
+      updateTimeInputFromState();
+    }
+
+    function updateActiveTimeText() {
+      const wheel = document.getElementById('detailTimeWheel');
+      const hour = document.getElementById('detailWheelHour')?.dataset.value || '08';
+      const minute = document.getElementById('detailWheelMinute')?.dataset.value || '10';
+      const label = wheel.dataset.activePart === 'end' ? '\u7ed3\u675f ' : '\u5f00\u59cb ';
+      const text = document.getElementById('detailActiveTimeText');
+      if (text) text.textContent = `${label}${hour}:${minute}`;
+    }
+
+    function updateTimeInputFromState() {
+      const wheel = document.getElementById('detailTimeWheel');
+      const startHour = wheel.dataset.startHour || '08';
+      const startMinute = wheel.dataset.startMinute || '10';
+      const endHour = wheel.dataset.endHour || startHour;
+      const endMinute = wheel.dataset.endMinute || startMinute;
+      const start = `${startHour}:${startMinute}`;
+      const end = `${endHour}:${endMinute}`;
+      document.getElementById('detailEditTime').value = start === end ? start : `${start}-${end}`;
+      updateActiveTimeText();
+      setTimeInputError('');
+    }
+
+    function normalizeTimeInput(value) {
+      return value.trim().replace(/[：]/g, ':').replace(/[—–~～至到]/g, '-').replace(/\s+/g, '');
+    }
+
+    function minutesOf(time) {
+      const [hour, minute] = time.split(':').map(Number);
+      return hour * 60 + minute;
+    }
+
+    function validateTimeInput(value) {
+      const time = normalizeTimeInput(value);
+      const pattern = /^([01]\d|2[0-3]):[0-5]\d(-([01]\d|2[0-3]):[0-5]\d)?$/;
+      if (!pattern.test(time)) {
+        return { valid: false, message: '\u8bf7\u8f93\u5165 08:10 \u6216 07:10-08:15 \u8fd9\u6837\u7684\u65f6\u95f4\u683c\u5f0f' };
+      }
+      const parts = time.split('-');
+      if (parts.length === 2 && minutesOf(parts[1]) < minutesOf(parts[0])) {
+        return { valid: false, message: '\u7ed3\u675f\u65f6\u95f4\u4e0d\u80fd\u65e9\u4e8e\u5f00\u59cb\u65f6\u95f4' };
+      }
+      return { valid: true, value: time };
+    }
+
+    function setTimeInputError(message) {
+      const input = document.getElementById('detailEditTime');
+      const error = document.getElementById('detailEditTimeError');
+      if (input) input.classList.toggle('invalid', Boolean(message));
+      if (error) error.textContent = message;
     }
 
     function saveDetailEditor() {
-      const time = document.getElementById('detailEditTime').value.trim() || '-';
+      const timeCheck = validateTimeInput(document.getElementById('detailEditTime').value);
+      if (!timeCheck.valid) {
+        setTimeInputError(timeCheck.message);
+        document.getElementById('detailEditTime').focus();
+        return;
+      }
+      const time = timeCheck.value;
       const location = document.getElementById('detailEditLocation').value.trim() || '\u672a\u6807\u8bb0\u5730\u70b9';
       const title = document.getElementById('detailEditTitle').value.trim() || '\u7247\u6bb5\u8be6\u60c5';
       const text = document.getElementById('detailEditText').value.trim();
